@@ -9,6 +9,7 @@ const nextConfig = {
     ],
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',
+    unoptimized: true,
   },
 }
 

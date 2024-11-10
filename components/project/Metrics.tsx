@@ -2,11 +2,23 @@
 
 import { motion } from "framer-motion"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import type { Performance } from "@/types/project"
 import { Monitor, Smartphone } from "lucide-react"
 
+interface PerformanceMetrics {
+  score: number
+  fcp: number
+  lcp: number
+  cls: number
+  si: number
+}
+
+interface Performance {
+  desktop?: PerformanceMetrics
+  mobile?: PerformanceMetrics
+}
+
 interface MetricsProps {
-  performance: Performance
+  performance?: Performance
 }
 
 const getMetricColor = (metric: string, value: number): { text: string, bg: string } => {
@@ -109,51 +121,56 @@ const MetricItem = ({
 }
 
 export function Metrics({ performance }: MetricsProps) {
+  if (!performance) return null
+  
+  const hasMobile = performance.mobile
+  const hasDesktop = performance.desktop
+
+  if (!hasMobile && !hasDesktop) return null
+
   return (
     <div className="space-y-4">
-      <Tabs defaultValue="desktop">
-        <div className="flex items-center justify-between">
-          <h2 className="text-base font-semibold">PSI</h2>
-          <TabsList className="grid grid-cols-2 gap-2 items-center">
-            <TabsTrigger 
-              value="desktop" 
-              className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-2"
-            >
-              <Monitor className="w-4 h-4 mr-1" />
-              데스크톱
-            </TabsTrigger>
-            <TabsTrigger 
-              value="mobile"
-              className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-2"
-            >
-              <Smartphone className="w-4 h-4 mr-1" />
-              모바일
-            </TabsTrigger>
-          </TabsList>
+      {hasMobile && hasDesktop ? (
+        <Tabs defaultValue="desktop">
+          <div className="flex items-center justify-between">
+            <h2 className="text-base font-semibold">성능 지표</h2>
+            <TabsList className="grid grid-cols-2 gap-2">
+              <TabsTrigger value="desktop">
+                <Monitor className="w-4 h-4 mr-1" />
+                데스크톱
+              </TabsTrigger>
+              <TabsTrigger value="mobile">
+                <Smartphone className="w-4 h-4 mr-1" />
+                모바일
+              </TabsTrigger>
+            </TabsList>
+          </div>
+          <TabsContent value="desktop">
+            <MetricsContent metrics={performance.desktop} />
+          </TabsContent>
+          <TabsContent value="mobile">
+            <MetricsContent metrics={performance.mobile} />
+          </TabsContent>
+        </Tabs>
+      ) : (
+        <div>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-base font-semibold">성능 지표</h2>
+            <div className="flex items-center gap-2">
+              {hasDesktop && <Monitor className="w-4 h-4" />}
+              {hasMobile && <Smartphone className="w-4 h-4" />}
+            </div>
+          </div>
+          <MetricsContent metrics={hasDesktop ? performance.desktop : performance.mobile} />
         </div>
-
-        <TabsContent value="desktop">
-          <MetricsContent metrics={performance.desktop} />
-        </TabsContent>
-        <TabsContent value="mobile">
-          <MetricsContent metrics={performance.mobile} />
-        </TabsContent>
-      </Tabs>
+      )}
     </div>
   )
 }
 
-interface MetricsContentProps {
-  metrics: {
-    score: number
-    fcp: number
-    lcp: number
-    cls: number
-    si: number
-  }
-}
+const MetricsContent = ({ metrics }: { metrics?: PerformanceMetrics }) => {
+  if (!metrics) return null;
 
-const MetricsContent = ({ metrics }: MetricsContentProps) => {
   const getScoreColor = (score: number) => {
     if (score >= 90) return "text-green-500"
     if (score >= 50) return "text-orange-500"

@@ -29,7 +29,7 @@ export default function Header() {
     return null
   }
 
-  const logoSrc = theme === "dark" ? "/images/d_white.svg" : "/images/d.svg"
+  const imagePath = theme === 'dark' ? '/images/d_white.svg' : '/images/d.svg'
 
   return (
     <header className="sticky top-0 z-40 w-full backdrop-blur-sm">
@@ -38,7 +38,7 @@ export default function Header() {
           <div className="flex items-center gap-2">
             <Link href="/" className="flex items-center gap-2">
               <Image
-                src={logoSrc}
+                src={imagePath}
                 alt="DEVIN DOWN Logo"
                 width={92}
                 height={40}

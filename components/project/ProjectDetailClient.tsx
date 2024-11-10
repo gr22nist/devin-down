@@ -10,6 +10,7 @@ import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@/components/
 import { Button } from "@/components/ui/button"
 import { ExternalLink, Github } from "lucide-react"
 import { ProjectHeader } from './ProjectHeader'
+import { cn } from "@/lib/utils"
 
 interface ProjectDetailClientProps {
   project: Project
@@ -95,7 +96,10 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
             {/* 프로젝트 정보 섹션 */}
             <div className="grid lg:grid-cols-3 gap-6">
               {/* 프로젝트 개요 & 성능 지표 */}
-              <div className="lg:col-span-2 space-y-6">
+              <div className={cn(
+                "space-y-6",
+                project.performance ? "lg:col-span-2" : "lg:col-span-3"
+              )}>
                 <ProjectContent 
                   content={project.content} 
                   tech={project.tech}
@@ -104,13 +108,13 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
               </div>
               
               {/* 성능 지표 */}
-              <div className="lg:col-span-1">
-                {project.performance && (
+              {project.performance && (
+                <div className="lg:col-span-1">
                   <div className="sticky top-20 bg-card rounded-lg p-6">
                     <Metrics performance={project.performance} />
                   </div>
-                )}
-              </div>
+                </div>
+              )}
             </div>
 
             {/* 주요 기능 */}

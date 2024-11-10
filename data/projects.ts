@@ -79,7 +79,7 @@ export const projects: Project[] = [
         fcp: 1.2,
         lcp: 2.1,
         cls: 0.08,
-        si: 2.3
+        si: 2.1
       }
     }
   },
@@ -145,18 +145,11 @@ export const projects: Project[] = [
     ],
     performance: {
       desktop: {
-        score: 97,
+        score: 98,
         fcp: 0.3,
         lcp: 0.9,
-        cls: 0.073,
-        si: 1.3
-      },
-      mobile: {
-        score: 62,
-        fcp: 1.2,
-        lcp: 4.4,
-        cls: 0.195,
-        si: 4.4
+        cls: 0.068,
+        si: 0.7
       }
     }
   },
@@ -165,7 +158,7 @@ export const projects: Project[] = [
     title: "My력서",
     description: "누구나 간단하게 작성하는 나의 역사, My력서\n안전하고 간편한 온라인 이력서 작성 서비스",
     content: {
-      overview: "IndexedDB를 활용하여 사용자의 이력서 데이터를 브라우저에 안전하게 저장하고, 실시간 미리보기와 자동 저장 기능을 제공하는 온라인 이력서 작성 서비스입니다. 사용자의 개인정보를 보호하면서도 편리한 이력서 작성 경험을 제공하는 것에 중점을 두었습니다.",
+      overview: "IndexedDB를 활용하여 사용자의 이력서 데이터를 브라우저에 안전하게 저장하고, 실시간 미리보기와 자동 저장 기능을 제공하는 온라인 이력서 작성 서비스입니다.\n사용자의 개인정보를 보호하면서도 편리한 이력서 작성 경험을 제공하는 것에 중점을 두었습니다.",
       role: {
         main: "프론트엔드 개발 (개인 프로젝트)",
         tasks: [
@@ -225,21 +218,6 @@ export const projects: Project[] = [
       "/images/project/project1.jpg",
       "/images/project/project1.jpg"
     ],
-    performance: {
-      desktop: {
-        score: 98,
-        fcp: 0.8,
-        lcp: 1.2,
-        cls: 0.05,
-        si: 1.5
-      },
-      mobile: {
-        score: 92,
-        fcp: 1.2,
-        lcp: 1.8,
-        cls: 0.08,
-        si: 2.1
-      }
-    }
+    performance: undefined
   }
 ]

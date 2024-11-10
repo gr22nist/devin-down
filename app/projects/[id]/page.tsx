@@ -5,13 +5,12 @@ import { ProjectBackground } from '@/components/project/ProjectBackground'
 import { ProjectHeader } from '@/components/project/ProjectHeader'
 import { Metadata } from "next"
 
-// Next.js 15의 새로운 타입 정의
-type PageProps = {
+type Props = {
   params: { id: string }
-  searchParams?: { [key: string]: string | string[] | undefined }
+  searchParams: { [key: string]: string | string[] | undefined }
 }
 
-export default function ProjectPage({ params }: PageProps) {
+export default function ProjectPage({ params }: Props) {
   const project = projects.find(p => p.id === params.id)
   
   if (!project) {
@@ -30,7 +29,7 @@ export default function ProjectPage({ params }: PageProps) {
 }
 
 export async function generateMetadata(
-  { params }: PageProps
+  { params }: Props
 ): Promise<Metadata> {
   const project = projects.find(p => p.id === params.id)
   

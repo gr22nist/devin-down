@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { Menu } from "lucide-react"
@@ -18,10 +18,33 @@ const navigation = [
   { name: "연락처", id: "contact" }
 ]
 
+function Logo() {
+  const [mounted, setMounted] = useState(false)
+  const { resolvedTheme } = useTheme()
+  
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  const imagePath = mounted ? (resolvedTheme === 'dark' ? '/images/d_white.svg' : '/images/d.svg') : '/images/d.svg'
+  
+  return (
+    <Link href="/" className="flex items-center gap-2">
+      <Image
+        src={imagePath}
+        alt="DEVIN DOWN Logo"
+        width={92}
+        height={40}
+        priority
+        className="w-auto h-6"
+      />
+    </Link>
+  )
+}
+
 export default function Header() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
-  const { theme } = useTheme()
 
   const isProjectDetail = pathname.startsWith('/projects/') && pathname !== '/projects'
 
@@ -29,23 +52,12 @@ export default function Header() {
     return null
   }
 
-  const logoSrc = theme === "dark" ? "/images/d_white.svg" : "/images/d.svg"
-
   return (
     <header className="sticky top-0 z-40 w-full backdrop-blur-sm">
       <div className="container mx-auto">
         <nav className="flex items-center justify-between h-16">
           <div className="flex items-center gap-2">
-            <Link href="/" className="flex items-center gap-2">
-              <Image
-                src={logoSrc}
-                alt="DEVIN DOWN Logo"
-                width={92}
-                height={40}
-                priority
-                className="w-auto h-6"
-              />
-            </Link>
+            <Logo />
           </div>
 
           {/* 데스크톱 네비게이션 */}

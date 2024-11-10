@@ -3,10 +3,11 @@ import { projects } from '@/data/projects'
 import { ProjectDetailClient } from '@/components/project/ProjectDetailClient'
 
 interface Props {
-  searchParams: { id: string }
+  searchParams: Promise<{ id: string }>
 }
 
-export default async function ProjectPage({ searchParams }: Props) {
+export default async function ProjectPage(props: Props) {
+  const searchParams = await props.searchParams;
   const project = projects.find(p => p.id === searchParams.id)
 
   if (!project) {

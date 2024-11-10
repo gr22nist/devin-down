@@ -3,14 +3,16 @@ import { projects } from '@/data/projects'
 import { ProjectDetailClient } from '@/components/project/ProjectDetailClient'
 import { ProjectBackground } from '@/components/project/ProjectBackground'
 import { ProjectHeader } from '@/components/project/ProjectHeader'
+import { Metadata } from "next"
 
-interface Props {
-  params: { id: string }
+type Props = {
+  params: Promise<{ id: string }>
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
-export default async function ProjectPage({ params }: Props) {
-  const { id } = await params
-  const project = projects.find(p => p.id === id)
+export default async function ProjectPage(props: Props) {
+  const params = await props.params;
+  const project = projects.find(p => p.id === params.id)
 
   if (!project) {
     notFound()
@@ -27,8 +29,18 @@ export default async function ProjectPage({ params }: Props) {
   )
 }
 
-export function generateStaticParams() {
-  return projects.map((project) => ({
-    id: project.id,
-  }))
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
+  const project = projects.find(p => p.id === params.id)
+
+  if (!project) {
+    return {
+      title: "Project Not Found"
+    }
+  }
+
+  return {
+    title: `${project.title} | DEVIN DOWN`,
+    description: project.description
+  }
 }

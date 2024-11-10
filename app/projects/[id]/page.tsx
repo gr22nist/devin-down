@@ -5,14 +5,14 @@ import { ProjectBackground } from '@/components/project/ProjectBackground'
 import { ProjectHeader } from '@/components/project/ProjectHeader'
 import { Metadata } from "next"
 
-interface PageProps {
-  params: Promise<{ id: string }>
-  searchParams: Record<string, string | string[] | undefined>
+// Next.js 15의 새로운 타입 정의
+type PageProps = {
+  params: { id: string }
+  searchParams?: { [key: string]: string | string[] | undefined }
 }
 
-export default async function ProjectPage({ params }: PageProps) {
-  const { id } = await params
-  const project = projects.find(p => p.id === id)
+export default function ProjectPage({ params }: PageProps) {
+  const project = projects.find(p => p.id === params.id)
   
   if (!project) {
     notFound()
@@ -32,8 +32,7 @@ export default async function ProjectPage({ params }: PageProps) {
 export async function generateMetadata(
   { params }: PageProps
 ): Promise<Metadata> {
-  const { id } = await params
-  const project = projects.find(p => p.id === id)
+  const project = projects.find(p => p.id === params.id)
   
   if (!project) {
     return {

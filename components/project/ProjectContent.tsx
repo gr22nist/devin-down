@@ -20,7 +20,9 @@ export function ProjectContent({ content, tech, links }: ProjectContentProps) {
       <div className="p-6 rounded-lg border bg-card space-y-6">
         <Section title="프로젝트 개요">
           <div className="space-y-6">
-            <p className="text-muted-foreground">{content.overview}</p>
+            <p className="text-muted-foreground whitespace-pre-line">
+              {content.overview}
+            </p>
             
             <div className="space-y-4">
               <div>

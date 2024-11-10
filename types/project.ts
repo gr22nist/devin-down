@@ -1,18 +1,14 @@
-export interface Performance {
-  desktop: {
-    score: number
-    fcp: number
-    lcp: number
-    cls: number
-    si: number
-  }
-  mobile: {
-    score: number
-    fcp: number
-    lcp: number
-    cls: number
-    si: number
-  }
+interface PerformanceMetrics {
+  score: number
+  fcp: number
+  lcp: number
+  cls: number
+  si: number
+}
+
+interface Performance {
+  desktop?: PerformanceMetrics
+  mobile?: PerformanceMetrics
 }
 
 export interface Project {

@@ -10,8 +10,9 @@ type Props = {
   searchParams: { [key: string]: string | string[] | undefined }
 }
 
-export default function ProjectPage({ params }: Props) {
-  const project = projects.find(p => p.id === params.id)
+export default async function ProjectPage({ params }: Props) {
+  const { id } = params
+  const project = projects.find(p => p.id === id)
   
   if (!project) {
     notFound()
@@ -31,7 +32,8 @@ export default function ProjectPage({ params }: Props) {
 export async function generateMetadata(
   { params }: Props
 ): Promise<Metadata> {
-  const project = projects.find(p => p.id === params.id)
+  const { id } = params
+  const project = projects.find(p => p.id === id)
   
   if (!project) {
     return {

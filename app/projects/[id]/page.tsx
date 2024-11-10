@@ -6,13 +6,14 @@ import { ProjectHeader } from '@/components/project/ProjectHeader'
 import { Metadata } from "next"
 
 type Props = {
-  params: { id: string }
-  searchParams: { [key: string]: string | string[] | undefined }
+  params: Promise<{ id: string }>
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
-export default function ProjectPage({ params }: Props) {
+export default async function ProjectPage(props: Props) {
+  const params = await props.params;
   const project = projects.find(p => p.id === params.id)
-  
+
   if (!project) {
     notFound()
   }
@@ -28,11 +29,10 @@ export default function ProjectPage({ params }: Props) {
   )
 }
 
-export async function generateMetadata(
-  { params }: Props
-): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   const project = projects.find(p => p.id === params.id)
-  
+
   if (!project) {
     return {
       title: "Project Not Found"

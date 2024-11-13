@@ -18,7 +18,7 @@ export function Section({ title, children, className = "" }: SectionProps) {
       transition={{ duration: 0.5 }}
       className={`space-y-4 ${className}`}
     >
-      <h2 className="text-2xl font-semibold">{title}</h2>
+      <h2 className="text-xl font-semibold">{title}</h2>
       {children}
     </motion.section>
   )

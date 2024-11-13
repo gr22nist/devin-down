@@ -10,6 +10,7 @@ import { ModeToggle } from "@/components/mode-toggle"
 import { useTheme } from "next-themes"
 import Image from "next/image"
 import { ScrollProgress } from "@/components/ScrollProgress"
+import { ProjectHeader } from "../project/ProjectHeader"
 
 const navigation = [
   { name: "소개", id: "about" },
@@ -49,7 +50,7 @@ export default function Header() {
   const isProjectDetail = pathname.startsWith('/projects/') && pathname !== '/projects'
 
   if (isProjectDetail) {
-    return null
+    return <ProjectHeader />
   }
 
   return (

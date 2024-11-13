@@ -3,6 +3,7 @@ import "@/styles/globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import StructuredData from "./structured-data"
 import { suit } from './fonts'
+import { CustomCursor } from "@/components/CustomCursor"
 
 export const metadata: Metadata = {
   title: "DEVIN DOWN | 프론트엔드 포트폴리오",
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "ko_KR",
-    url: "https://your-domain.com",
+    url: "https://devin-down.vercel.app/",
     title: "포트폴리오 | 프론트엔드 개발자 DEVIN",
     description: "프론트엔드 개발자 DEVIN의 포트폴리오입니다.",
     siteName: "DEVIN의 포트폴리오",
@@ -41,6 +42,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <CustomCursor />
         </ThemeProvider>
       </body>
     </html>

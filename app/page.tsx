@@ -86,8 +86,8 @@ export default function IntroPage() {
           rotate: [-180, 0, 0],
         }}
         transition={{ 
-          duration: 2.8,
-          times: [0, 0.3, 1],
+          duration: 2.0,
+          times: [0, 0.3, 2],
           ease: [0.16, 1, 0.3, 1],
         }}
         onAnimationStart={() => {

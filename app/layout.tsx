@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import StructuredData from "./structured-data"
 import { suit } from './fonts'
 import { CustomCursor } from "@/components/CustomCursor"
+import { FloatingContact } from "@/components/FloatingContact"
 
 export const metadata: Metadata = {
   title: "DEVIN DOWN | 프론트엔드 포트폴리오",
@@ -43,6 +44,7 @@ export default function RootLayout({
         >
           {children}
           <CustomCursor />
+          <FloatingContact />
         </ThemeProvider>
       </body>
     </html>

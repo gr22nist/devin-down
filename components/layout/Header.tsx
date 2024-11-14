@@ -13,10 +13,10 @@ import { ScrollProgress } from "@/components/ScrollProgress"
 import { ProjectHeader } from "../project/ProjectHeader"
 
 const navigation = [
+  { name: "홈", id: "hero" },
   { name: "소개", id: "about" },
   { name: "스킬", id: "skills" },
   { name: "프로젝트", id: "projects" },
-  { name: "연락처", id: "contact" }
 ]
 
 function Logo() {
@@ -56,27 +56,8 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-40 w-full backdrop-blur-sm">
       <div className="container mx-auto">
-        <nav className="flex items-center justify-between h-16">
-          <div className="flex items-center gap-2">
-            <Logo />
-          </div>
-
-          {/* 데스크톱 네비게이션 */}
-          <div className="hidden md:flex items-center gap-1">
-            {navigation.map((item) => (
-              <Button 
-                key={item.name}
-                variant="ghost"
-                className="px-4"
-                onClick={() => {
-                  document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' })
-                }}
-              >
-                {item.name}
-              </Button>
-            ))}
-          </div>
-
+        <nav className="flex items-center justify-between h-16 px-4">
+          <Logo />
           <div className="flex items-center gap-2">
             <ModeToggle />
             

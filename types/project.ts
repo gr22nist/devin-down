@@ -60,10 +60,26 @@ interface ProjectContent {
   features?: Feature[]
 }
 
+export type ProjectStatusType = 
+  | '개발 중'
+  | '버전 1.0' 
+  | '운영 중' 
+  | '종료' 
+  | '리뉴얼 예정'
+  | 'MVP'
+  | '유지보수 중'
+
+export interface ProjectStatus {
+  main: ProjectStatusType
+  additional?: ProjectStatusType[]
+}
+
 export interface Project {
   id: string
   title: string
   description: string
+  status: ProjectStatus
+  period: string
   content: ProjectContent
   tech: string[]
   links: {

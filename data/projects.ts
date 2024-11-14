@@ -4,9 +4,14 @@ export const projects: Project[] = [
   {
     id: "portfolio",
     title: "DEVIN DOWN",
-    description: "DEVIN의 포트폴리오",
+    description: "DEVIN 다운 코드란? 포트폴리오 페이지",
+    status: {
+      main: "운영 중",
+      additional: ["리뉴얼 예정"]
+    },
+    period: "2024.11 ~",
     content: {
-      overview: "Next.js와 Tailwind CSS를 활용하여 구현한 개인 포트폴리오 웹사이트입니다. SSR/SSG 하이브리드 렌더링을 통해 초기 로딩 시간을 최적화하고, Framer Motion을 활용한 부드러운 인터랙션으로 사용자 경험을 향상시켰습니다.",
+      overview: "개인 포트폴리오 페이지입니다. Framer Motion을 활용해 부드러운 미니 인터랙션을 다양하게 사용했습니다.",
       role: {
         main: "프론트엔드 개발 (개인 프로젝트)",
         tasks: [
@@ -21,7 +26,14 @@ export const projects: Project[] = [
           title: "성능과 사용자 경험의 균형",
           tags: ["성능", "UX"],
           issue: "대용량 이미지와 애니메이션으로 인한 성능 저하 문제",
-          solution: "SSR/SSG 하이브리드 렌더링 도입, 이미지 최적화, 컴포넌트 지연 로딩 적용",
+          solution: "하이브리드 렌더링 도입, 이미지 최적화, 컴포넌트 지연 로딩 적용",
+          result: "PSI 성능 점수 95+ 달성, FCP 0.8초 달성"
+        },
+        {
+          title: "성능과 사용자 경험의 균형",
+          tags: ["성능", "UX"],
+          issue: "대용량 이미지와 애니메이션으로 인한 성능 저하 문제",
+          solution: "하이브리드 렌더링 도입, 이미지 최적화, 컴포넌트 지연 로딩 적용",
           result: "Lighthouse 성능 점수 95+ 달성, FCP 0.8초 달성"
         }
       ],
@@ -81,7 +93,7 @@ export const projects: Project[] = [
       github: "https://github.com/gr22nist/devin-down",
       demo: "https://devin-down.vercel.app"
     },
-    image: "/images/project/project1.jpg",
+    image: "/images/dd-thumbnail.svg",
     gallery: [
       "/images/project/project1.jpg",
       "/images/project/project1.jpg",
@@ -109,6 +121,11 @@ export const projects: Project[] = [
     id: "sqool",
     title: "SQooL",
     description: "한글 데이터로 배우는 마음 편한 SQLite!\n설치 없이 바로 실행하는 웹 기반 SQL 학습 플랫폼",
+    status: {
+      main: "운영 중",
+      additional: ["버전 1.0"]
+    },
+    period: "2024.01 ~ 2024.02",
     content: {
       overview: "SQL 입문자가 편리하게 사용할 수 있는 웹 에디터 기반 SQLit 학습 서비스입니다.\n한글 데이터베이스를 활용하여 학습 진입 장벽을 낮추고, 재미있는 학습을 제공합니다.",
       role: {
@@ -176,7 +193,7 @@ export const projects: Project[] = [
       github: "https://github.com/username/sqool",
       demo: "https://sqool.kr"
     },
-    image: "/images/project/project1.jpg",
+    image: "/images/sqool-thumbnail.svg",
     gallery: [
       "/images/project/project1.jpg",
       "/images/project/project1.jpg",
@@ -197,8 +214,13 @@ export const projects: Project[] = [
     id: "myr",
     title: "My력서",
     description: "누구나 간단하게 작성하는 나의 역사, My력서\n안전하고 간편한 온라인 이력서 작성 서비스",
+    status: {
+      main: "개발 중",
+      additional: ["MVP"]
+    },
+    period: "2024.09 ~ 현재",
     content: {
-      overview: "IndexedDB를 활용하여 사용자의 이력서 데이터를 브라우저에 안전하게 저장하고, 실시간 미리보기와 자동 저장 기능을 제공하는 온라인 이력서 작성 서비스입니다.\n사용자의 개인정보를 보호하면서도 편리한 이력서 작성 경험을 제공하는 것에 중점을 두었습니다.",
+      overview: "IndexedDB를 활용하여 사용자의 이력서 데이터를 브라우저에 안전하게 저장하고, 실시간 미리보기와 자동 저장 기능을 제공하는 온라인 이력서 작성 서비스입니다.\n\n사용자의 개인정보를 보호하면서도 편리한 이력서 작성 경험을 제공하는 것에 중점을 두었습니다.",
       role: {
         main: "프론트엔드 개발 (개인 프로젝트)",
         tasks: [
@@ -271,7 +293,7 @@ export const projects: Project[] = [
       github: "https://github.com/gr22nist/MYR",
       demo: "https://myrec.kr"
     },
-    image: "/images/project/project1.jpg",
+    image: "/images/myr-thumbnail.svg",
     gallery: [
       "/images/project/project1.jpg",
       "/images/project/project1.jpg",

@@ -16,7 +16,7 @@ interface FeaturesProps {
 export function Features({ features }: FeaturesProps) {
   return (
     <Section title="주요 기능">
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="space-y-8">
         {features.map((feature, index) => (
           <div key={index} className="space-y-4">
             <h3 className="text-xl font-semibold">{feature.title}</h3>

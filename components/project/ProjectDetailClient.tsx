@@ -55,12 +55,14 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
               {/* 왼쪽: 프로젝트 개요 */}
               <div className="order-first">
                 <div className="lg:sticky lg:top-20">
-                  <div className="p-6 rounded-lg border bg-card">
+                  <div className="p-6 rounded-lg border bg-card/80 backdrop-blur-sm">
                     <ProjectOverview 
                       overview={project.content.overview}
                       tech={project.tech}
                       role={project.content.role}
                       links={project.links}
+                      status={project.status}
+                      period={project.period}
                     />
                   </div>
                 </div>
@@ -69,34 +71,34 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
               {/* 오른쪽: 상세 내용 */}
               <div className="space-y-6">
                 {/* 기술 스택 및 선정 이유 */}
-                <div className="p-6 rounded-lg border bg-card">
+                <div className="p-6 rounded-lg border bg-card/80 backdrop-blur-sm">
                   <TechStacks stacks={project.content.techStacks} />
                 </div>
 
                 {/* 주요 기능 */}
                 {project.content.features && project.content.features.length > 0 && (
-                  <div className="p-6 rounded-lg border bg-card">
+                  <div className="p-6 rounded-lg border bg-card/80 backdrop-blur-sm">
                     <Features features={project.content.features} />
                   </div>
                 )}
 
                 {/* 도전 과제 */}
                 {project.content.challenges && (
-                  <div className="p-6 rounded-lg border bg-card">
+                  <div className="p-6 rounded-lg border bg-card/80 backdrop-blur-sm">
                     <Challenges challenges={project.content.challenges} />
                   </div>
                 )}
 
                 {/* 트러블 슈팅 */}
                 {project.content.troubleShooting && (
-                  <div className="p-6 rounded-lg border bg-card">
+                  <div className="p-6 rounded-lg border bg-card/80 backdrop-blur-sm">
                     <TroubleShooting items={project.content.troubleShooting} />
                   </div>
                 )}
 
                 {/* 성능 지표 */}
                 {project.performance && (
-                  <div className="p-6 rounded-lg border bg-card">
+                  <div className="p-6 rounded-lg border bg-card/80 backdrop-blur-sm">
                     <Metrics performance={project.performance} />
                   </div>
                 )}

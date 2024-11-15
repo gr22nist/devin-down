@@ -21,7 +21,7 @@ const navigation = [
 
 function Logo() {
   return (
-    <Link href="/" className="flex items-center gap-2">
+    <Link href="/" className="flex items-center gap-2" aria-label="홈으로 이동">
       <LogoIcon className="h-6 w-auto" />
     </Link>
   )

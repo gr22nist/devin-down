@@ -3,20 +3,7 @@
 import { motion } from "framer-motion"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Monitor, Smartphone } from "lucide-react"
-
-interface PerformanceMetrics {
-  score: number
-  fcp: number
-  lcp: number
-  cls: number
-  si: number
-}
-
-interface Performance {
-  desktop?: PerformanceMetrics
-  mobile?: PerformanceMetrics
-}
-
+import type { PerformanceMetrics, Performance } from '@/types/project'
 interface MetricsProps {
   performance?: Performance
 }
@@ -30,6 +17,10 @@ const getMetricColor = (metric: string, value: number): { text: string, bg: stri
     case 'LCP':
       if (value <= 2.5) return { text: "text-green-500", bg: "bg-green-500" }
       if (value <= 4.0) return { text: "text-orange-500", bg: "bg-orange-500" }
+      return { text: "text-red-500", bg: "bg-red-500" }
+    case 'TBT':
+      if (value <= 200) return { text: "text-green-500", bg: "bg-green-500" }
+      if (value <= 600) return { text: "text-orange-500", bg: "bg-orange-500" }
       return { text: "text-red-500", bg: "bg-red-500" }
     case 'CLS':
       if (value <= 0.1) return { text: "text-green-500", bg: "bg-green-500" }
@@ -50,6 +41,8 @@ const getTargets = (metric: string) => {
       return { good: 1.8, medium: 3.0 }
     case 'LCP':
       return { good: 2.5, medium: 4.0 }
+    case 'TBT':
+      return { good: 200, medium: 600 }
     case 'CLS':
       return { good: 0.1, medium: 0.25 }
     case 'SI':
@@ -213,6 +206,12 @@ const MetricsContent = ({ metrics }: { metrics?: PerformanceMetrics }) => {
           fullLabel="Largest Contentful Paint"
           value={metrics.lcp}
           unit="s" 
+        />
+        <MetricItem 
+          label="TBT" 
+          fullLabel="Total Blocking Time"
+          value={metrics.tbt}
+          unit="ms" 
         />
         <MetricItem 
           label="CLS" 

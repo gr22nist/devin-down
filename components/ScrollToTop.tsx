@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowUp } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { usePathname } from 'next/navigation'
+import { cn } from "@/lib/utils"
 
 export function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false)
@@ -24,12 +25,15 @@ export function ScrollToTop() {
     return () => window.removeEventListener('scroll', toggleVisibility)
   }, [])
 
-  if (isProjectDetail) return null
-
   return (
     <AnimatePresence>
       {isVisible && (
-        <div className="fixed bottom-24 right-8 md:right-12 md:bottom-28 z-50 opacity-50 hover:opacity-100 transition-opacity duration-300">
+        <div className={cn(
+          "fixed right-8 z-50 opacity-50 hover:opacity-100 transition-opacity duration-300",
+          isProjectDetail 
+            ? "bottom-8 md:bottom-12"
+            : "bottom-24 md:right-12 md:bottom-28"
+        )}>
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}

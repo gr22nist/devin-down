@@ -127,17 +127,11 @@ export const projects: Project[] = [
     performance: {
       desktop: {
         score: 98,
-        fcp: 0.8,
-        lcp: 1.2,
-        cls: 0.05,
-        si: 1.5
-      },
-      mobile: {
-        score: 95,
-        fcp: 1.2,
-        lcp: 2.1,
-        cls: 0.08,
-        si: 2.1
+        fcp: 0.2,
+        lcp: 1.0,
+        tbt: 10,
+        cls: 0.006,
+        si: 1.2
       }
     }
   },
@@ -228,6 +222,7 @@ export const projects: Project[] = [
         score: 98,
         fcp: 0.3,
         lcp: 0.9,
+        tbt: 0,
         cls: 0.068,
         si: 0.7
       }

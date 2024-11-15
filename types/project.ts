@@ -7,32 +7,33 @@ export interface ProjectOverviewProps {
   period: string
 }
 
-interface PerformanceMetrics {
+export interface PerformanceMetrics {
   score: number
   fcp: number
   lcp: number
+  tbt: number
   cls: number
   si: number
 }
 
-interface Performance {
+export interface Performance {
   desktop?: PerformanceMetrics
   mobile?: PerformanceMetrics
 }
 
-interface Contribution {
+export interface Contribution {
   part: string 
   percentage: number
   details: string[]
 }
 
-interface TechStack {
+export interface TechStack {
   name: string
   reason: string
   description?: string
 }
 
-interface Challenge {
+export interface Challenge {
   title: string
   tags?: string[]
   issue?: string
@@ -40,7 +41,7 @@ interface Challenge {
   result: string
 }
 
-interface TroubleShooting {
+export interface TroubleShooting {
   title: string
   tags?: string[]
   issue?: string
@@ -50,7 +51,7 @@ interface TroubleShooting {
   relatedTech?: string[]
 }
 
-interface Feature {
+export interface Feature {
   title: string
   description: string
   tags?: string[]

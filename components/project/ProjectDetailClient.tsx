@@ -7,6 +7,8 @@ import { ProjectBackground } from "./ProjectBackground"
 import { ProjectHeader } from "./ProjectHeader"
 import type { Project } from "@/types/project"
 import { ProjectSkeleton } from './ProjectSkeleton'
+import { ScrollToTop } from '@/components/ScrollToTop'
+import Footer from '../layout/Footer'
 
 // 동적 임포트로 변경
 const ProjectOverview = dynamic(() => import('./ProjectOverview').then(mod => mod.ProjectOverview), {
@@ -133,6 +135,8 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
           </motion.div>
         </div>
       </main>
+      <Footer />
+      <ScrollToTop />
     </div>
   )
 }

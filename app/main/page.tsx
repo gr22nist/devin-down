@@ -7,15 +7,15 @@ import AboutSection from "@/components/sections/AboutSection"
 export default function Home() {
   return (
     <>
-      <ColorfulBackground />
+      <ColorfulBackground isDetailPage={false} />
       <main className="relative">
         <div className="h-screen">
           <HeroSection />
         </div>
-        <div className="relative max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative mx-auto pb-16">
           <AboutSection />
-          <ProjectsSection />
           <SkillsSection />
+          <ProjectsSection />
         </div>
       </main>
     </>

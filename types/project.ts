@@ -30,7 +30,7 @@ export interface Contribution {
 export interface TechStack {
   name: string
   reason: string
-  description?: string
+  description?: string | string[]
 }
 
 export interface Challenge {
@@ -53,7 +53,7 @@ export interface TroubleShooting {
 
 export interface Feature {
   title: string
-  description: string
+  description: string | string[]
   tags?: string[]
 }
 
@@ -95,7 +95,7 @@ export interface ProjectStatus {
 export interface Project {
   id: string
   title: string
-  description: string
+  description: string | string[]
   status: ProjectStatus
   period: string
   content: ProjectContent

@@ -7,7 +7,7 @@ export const ProjectBackground = () => (
           dark:from-gray-950 dark:via-slate-950 dark:to-gray-950 opacity-40 dark:opacity-70" 
       />
       <div 
-        className="absolute inset-0 [mask-image:url(/noise.svg)] [mask-size:100px] 
+        className="absolute inset-0 [mask-image:url(/images/noise.svg)] [mask-size:100px] 
           mix-blend-soft-light opacity-30"
       />
   </div>

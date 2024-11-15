@@ -1,11 +1,10 @@
 "use client"
 
 import { Section } from "./Section"
-import { Badge } from "@/components/ui/badge"
 
 interface Feature {
   title: string
-  description: string
+  description: string | string[]
   tags?: string[]
 }
 
@@ -20,13 +19,21 @@ export function Features({ features }: FeaturesProps) {
         {features.map((feature, index) => (
           <div key={index} className="space-y-4">
             <h3 className="text-xl font-semibold">{feature.title}</h3>
-            <p className="text-muted-foreground">{feature.description}</p>
-            {feature.tags && (
+            <div className="text-muted-foreground">
+              {Array.isArray(feature.description) ? (
+                feature.description.map((desc, i) => (
+                  <p key={i} className="mt-1">{desc}</p>
+                ))
+              ) : (
+                <p>{feature.description}</p>
+              )}
+            </div>
+            {feature.tags && feature.tags.length > 0 && (
               <div className="flex flex-wrap gap-2">
-                {feature.tags.map((tag) => (
-                  <Badge key={tag} variant="outline">
-                    {tag}
-                  </Badge>
+                {feature.tags.map((tag, i) => (
+                  <span key={i} className="text-sm text-muted-foreground">
+                    #{tag}
+                  </span>
                 ))}
               </div>
             )}

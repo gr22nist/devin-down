@@ -15,7 +15,7 @@ import { cn } from '@/lib/utils'
 interface ProjectCardProps {
   id: string
   title: string
-  description: string
+  description: string | string[]
   tech: string[]
   image: string
   links: {
@@ -113,9 +113,21 @@ export function ProjectCard({ id, title, description, tech, image, status }: Pro
                 {status.main}
               </Badge>
             </div>
-            <p className="text-sm text-muted-foreground/80 line-clamp-2">
-              {description}
-            </p>
+            <div className="text-muted-foreground">
+              {Array.isArray(description) ? (
+                description.map((desc, index) => (
+                  <p key={index} className="leading-relaxed">
+                    {desc}
+                  </p>
+                ))
+              ) : (
+                description.split('\n').map((desc, index) => (
+                  <p key={index} className="leading-relaxed">
+                    {desc}
+                  </p>
+                ))
+              )}
+            </div>
           </div>
 
           <div className="border-t border-transparent" />

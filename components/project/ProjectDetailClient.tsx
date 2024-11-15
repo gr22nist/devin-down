@@ -10,7 +10,6 @@ import { ProjectSkeleton } from './ProjectSkeleton'
 import { ScrollToTop } from '@/components/ScrollToTop'
 import Footer from '../layout/Footer'
 
-// 동적 임포트로 변경
 const ProjectOverview = dynamic(() => import('./ProjectOverview').then(mod => mod.ProjectOverview), {
   loading: () => <ProjectSkeleton />
 })
@@ -53,9 +52,17 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
             {/* 1. 프로젝트 소개 */}
             <div className="space-y-4">
               <h1 className="text-4xl font-bold text-center">{project.title}</h1>
-              <p className="text-lg text-muted-foreground text-center max-w-2xl mx-auto">
-                {project.description}
-              </p>
+              <div className="text-lg text-muted-foreground text-center max-w-2xl mx-auto">
+                {Array.isArray(project.description) ? (
+                  project.description.map((desc, index) => (
+                    <p key={index}>{desc}</p>
+                  ))
+                ) : (
+                  project.description.split('\n').map((desc, index) => (
+                    <p key={index}>{desc}</p>
+                  ))
+                )}
+              </div>
             </div>
 
             {/* 2. 갤러리 */}
@@ -72,10 +79,10 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
             )}
 
             {/* 3. 프로젝트 상세 정보 */}
-            <div className="grid xl:grid-cols-2 gap-6">
+            <div className="grid lg:grid-cols-2 gap-6">
               {/* 왼쪽: 프로젝트 개요 */}
               <div className="order-first">
-                <div className="xl:sticky xl:top-20">
+                <div className="lg:sticky lg:top-20">
                   <Suspense fallback={<ProjectSkeleton />}>
                     <div className="p-6 rounded-lg border bg-card/80 backdrop-blur-sm">
                       <ProjectOverview 

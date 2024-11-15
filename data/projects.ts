@@ -4,107 +4,120 @@ export const projects: Project[] = [
   {
     id: "portfolio",
     title: "DEVIN DOWN",
-    description: "DEVIN 다운 코드! Next.js와 TypeScript로 만든 프론트엔드 포트폴리오 페이지",
+    description: [
+      "Next.js와 TypeScript로 만든 개인 포트폴리오 웹사이트",
+      "편안한 사용자 경험과 성능 지표에 중점을 둔 프론트엔드 프로젝트"
+    ],
     status: {
       main: "운영 중",
-      additional: ["리뉴얼 예정"]
+      additional: ["버전 1.0"]
     },
     period: "2024.11 ~",
     content: {
-      overview: "개인 포트폴리오 페이지입니다. Framer Motion을 활용해 부드러운 미니 인터랙션을 다양하게 사용했습니다.",
+      overview: "Next.js App Router와 TypeScript를 기반의 포트폴리오 웹사이트입니다. 성능 최적화와 접근성을 고려한 UI/UX 설계에 중점을 두었습니다.\n\n프로젝트별 상세 페이지에서는 동적 임포트와 Suspense를 활용한 점진적 로딩으로 초기 로딩 속도를 개선했고, 반응형 레이아웃과 다크모드로 다양한 사용 환경을 지원합니다.",
       role: {
         main: "프론트엔드 개발 (개인 프로젝트)",
         tasks: [
-          "Next.js App Router를 활용한 프로젝트 구조 설계",
-          "Tailwind CSS와 shadcn/ui로 디자인 시스템 구축",
-          "Framer Motion을 활용한 인터랙션 구현",
-          "다크모드 및 반응형 레이아웃 구현"
+          "Next.js App Router 기반 프로젝트 구조 설계",
+          "성능 최적화 (동적 임포트, Suspense, 이미지 최적화)",
+          "Framer Motion 활용한 인터랙션 구현",
+          "반응형 레이아웃 및 다크모드 구현",
+          "접근성과 SEO 최적화"
         ],
         participation: 100
       },
       challenges: [
         {
-          title: "동적 컴포넌트 로딩 최적화",
+          title: "프로젝트 상세 페이지 성능 최적화",
           tags: ["성능", "Next.js"],
-          issue: "프로젝트 상세 페이지의 초기 로딩 속도 저하 문제",
+          issue: "프로젝트 상세 페이지의 큰 번들 크기로 인한 초기 로딩 지연",
           solution: [
-            "dynamic import를 활용한 컴포넌트 분할",
-            "Suspense를 활용한 로딩 상태 관리",
-            "ProjectSkeleton 컴포넌트로 사용자 경험 개선"
+            "dynamic import로 컴포넌트 분할 로딩",
+            "Suspense boundary 설정으로 점진적 로딩",
+            "next/image로 이미지 최적화",
+            "스켈레톤 UI로 로딩 UX 개선"
           ],
-          result: "초기 페이지 로드 시간 40% 감소 및 사용자 경험 개선"
+          result: "Lighthouse 성능 점수 98점 달성, LCP 1.0초 이내 로딩"
         },
         {
-          title: "반응형 레이아웃 구현",
-          tags: ["UI/UX", "Tailwind CSS"],
-          issue: "다양한 디바이스에서의 최적화된 레이아웃 제공 필요",
+          title: "접근성과 SEO 최적화",
+          tags: ["접근성", "SEO"],
+          issue: "스크린리더 지원 미흡과 검색엔진 최적화 필요",
           solution: [
-            "Tailwind CSS의 반응형 클래스 활용",
-            "Grid 시스템을 활용한 유동적 레이아웃 구현",
-            "컴포넌트별 독립적인 반응형 처리"
+            "시맨틱 HTML 구조 개선",
+            "ARIA 레이블 및 랜드마크 적용",
+            "구조화 된 메타 데이터와 최적화",
           ],
-          result: "모든 디바이스에서 일관된 사용자 경험 제공"
+          result: "PSI 접근성, SEO 100점 달성"
         }
       ],
       troubleShooting: [
         {
-          title: "프로젝트 상세 페이지 성능 최적화",
-          tags: ["성능", "Next.js"],
-          issue: "프로젝트 상세 페이지 렌더링 시 발생하는 성능 저하 문제",
+          title: "다크모드 전환 시 깜빡임 현상",
+          tags: ["UI/UX", "Next.js"],
+          issue: "페이지 초기 로드 시 라이트 모드가 잠깐 보였다가 다크모드로 전환되는 깜빡임 현상 발생",
           process: [
-            "Chrome DevTools를 통한 성능 분석",
-            "컴포넌트 렌더링 패턴 분석",
-            "동적 임포트 전략 수립"
+            "next-themes 문서 확인",
+            "HTML class 적용 시점 분석",
+            "다크모드 전환 프로세스 디버깅"
           ],
           solution: [
-            "dynamic import를 활용한 컴포넌트 분할",
-            "Suspense 경계 설정으로 점진적 로딩 구현",
-            "스켈레톤 UI 적용으로 로딩 UX 개선"
+            "<html> 태그에 suppressHydrationWarning 속성 추가",
+            "tailwind.config에 darkMode: 'class' 설정",
+            "ThemeProvider로 애플리케이션 래핑"
           ],
-          result: "페이지 초기 로딩 시간 40% 감소, Lighthouse 성능 점수 98점 달성",
-          relatedTech: ["Next.js", "React Suspense", "Dynamic Import"]
+          result: "페이지 초기 로드 시 발생하는 테마 깜빡임 현상 제거",
+          relatedTech: ["next-themes", "Tailwind CSS"]
         },
         {
-          title: "프로젝트 데이터 관리 최적화",
-          tags: ["상태관리", "TypeScript"],
-          issue: "복잡한 프로젝트 데이터 구조로 인한 타입 안정성과 유지보수성 저하",
+          title: "프로젝트 데이터 관리 개선",
+          tags: ["TypeScript", "데이터구조"],
+          issue: "프로젝트 데이터 타입 정의 부족으로 인한 유지보수 어려움",
           process: [
-            "프로젝트 데이터 구조 분석",
-            "TypeScript 타입 시스템 설계",
+            "기존 데이터 구조 분석",
+            "필요한 타입 정의 식별",
+            "인터페이스 설계"
+          ],
+          solution: [
+            "명확한 타입 인터페이스 정의와 타입 안정성 확보를 위한 타입 시스템 구축",
             "데이터 정규화 전략 수립"
           ],
-          solution: "명확한 인터페이스 정의와 타입 안정성 확보를 위한 타입 시스템 구축",
-          result: "코드 품질 향상 및 개발 생산성 30% 증가",
+          result: "코드 품질 향상 및 유지보수 편의성 증가",
           relatedTech: ["TypeScript", "Next.js"]
         }
       ],
       techStacks: [
         {
           name: "Next.js",
-          reason: "SSR/SSG 하이브리드 렌더링과 App Router를 활용한 최적화된 라우팅을 위해 선택",
-          description: "서버 사이드 렌더링과 정적 생성을 조합하여 최적의 성능 제공"
+          reason: "App Router & SSR",
+          description: "App Router를 활용한 페이지 구조화 및 동적 라우팅 구현"
+        },
+        {
+          name: "TypeScript",
+          reason: "코드 안정성 & 데이터 타입 정의",
+          description: "인터페이스를 활용한 프로젝트 데이터 타입 정의"
         },
         {
           name: "Tailwind CSS",
-          reason: "빠른 UI 개발과 일관된 디자인 시스템 구축을 위해 선택",
-          description: "유틸리티 기반의 CSS로 생산성 향상과 번들 크기 최적화"
-        }
+          reason: "빠른 UI 개발 & 다크모드 구현",
+          description: "유틸리티 클래스를 활용한 반응형 레이아웃"
+        },
       ],
       features: [
         {
-          title: "하이브리드 렌더링",
-          description: "SSR과 SSG를 조합하여 최적의 성능 제공",
-          tags: ["성능", "SEO"]
-        },
-        {
-          title: "반응형 디자인",
-          description: "모든 디바이스에서 최적화된 레이아웃 제공",
-          tags: ["UI/UX", "접근성"]
+          title: "반응형 레이아웃",
+          description: "모바일, 태블릿, 데스크톱 화면 크기별 최적화",
+          tags: ["UI/UX", "반응형"]
         },
         {
           title: "다크모드",
-          description: "시스템 설정과 연동되는 자연스러운 테마 전환",
-          tags: ["UI/UX", "접근성"]
+          description: "next-themes를 활용한 라이트/다크 모드 전환",
+          tags: ["UI/UX", "테마"]
+        },
+        {
+          title: "스크롤 인터랙션",
+          description: "스크롤 프로그레스바와 탑 버튼 구현",
+          tags: ["UI/UX", "인터랙션"]
         }
       ]
     },
@@ -115,7 +128,7 @@ export const projects: Project[] = [
     ],
     links: {
       github: "https://github.com/gr22nist/devin-down",
-      demo: "https://devin-down.vercel.app"
+      demo: "https://devin.myrec.kr"
     },
     image: "/images/dd-thumbnail.svg",
     gallery: [

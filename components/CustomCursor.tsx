@@ -2,6 +2,7 @@
 
 import { motion, useMotionValue, useSpring } from "framer-motion"
 import { useEffect, useState } from "react"
+import { useMediaQuery } from "@/hooks/useMediaQuery"
 
 export function CustomCursor() {
   const [isHovered, setIsHovered] = useState(false)
@@ -10,6 +11,7 @@ export function CustomCursor() {
   const cursorSize = useMotionValue(16)
   const cursorX = useMotionValue(-100)
   const cursorY = useMotionValue(-100)
+  const isMobile = useMediaQuery('(max-width: 768px)')
   
   const springConfig = { damping: 25, stiffness: 200 }
   const cursorXSpring = useSpring(cursorX, springConfig)
@@ -17,7 +19,7 @@ export function CustomCursor() {
   const cursorSizeSpring = useSpring(cursorSize, springConfig)
 
   useEffect(() => {
-    if (typeof window === 'undefined') return
+    if (typeof window === 'undefined' || isMobile) return
 
     const moveCursor = (e: MouseEvent) => {
       cursorX.set(e.clientX)
@@ -76,7 +78,9 @@ export function CustomCursor() {
       window.removeEventListener("mouseup", handleMouseUp)
       observer.disconnect()
     }
-  }, [cursorX, cursorY, cursorSize, isHovered])
+  }, [cursorX, cursorY, cursorSize, isHovered, isMobile])
+
+  if (isMobile) return null
 
   return (
     <motion.div

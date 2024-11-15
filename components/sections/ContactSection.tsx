@@ -6,7 +6,7 @@ import { Mail } from "lucide-react"
 
 export default function ContactSection() {
   return (
-    <section id="contact" className="container py-24">
+    <section id="contact" className="container">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}

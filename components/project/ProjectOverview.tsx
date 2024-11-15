@@ -3,24 +3,9 @@ import type { BadgeProps } from "../ui/badge"
 import { Button } from "../ui/button"
 import { ExternalLink, Github } from "lucide-react"
 import { Section } from "./Section"
-import { ProjectStatus, ProjectStatusType } from "@/types/project"
+import { ProjectStatusType, ProjectOverviewProps } from "@/types/project"
 
 type BadgeVariant = NonNullable<BadgeProps["variant"]>
-
-interface ProjectOverviewProps {
-  overview: string
-  tech: string[]
-  role: {
-    main: string
-    tasks: string[]
-  }
-  links: {
-    github: string
-    demo?: string
-  }
-  status: ProjectStatus
-  period: string
-}
 
 export function ProjectOverview({ overview, tech, role, links, status, period }: ProjectOverviewProps) {
   return (
@@ -54,7 +39,7 @@ export function ProjectOverview({ overview, tech, role, links, status, period }:
             <h4 className="text-lg font-semibold">사용 기술</h4>
             <div className="flex flex-wrap gap-2">
               {tech.map((item) => (
-                <Badge key={item} variant="secondary">
+                <Badge key={item} variant="outline">
                   {item}
                 </Badge>
               ))}
@@ -66,7 +51,7 @@ export function ProjectOverview({ overview, tech, role, links, status, period }:
             <div className="space-y-3">
               <div className="flex items-center gap-2">
                 <span className="font-medium">{role.main}</span>
-                <Badge>참여율 100%</Badge>
+                <Badge>참여율 {role.participation}%</Badge>
               </div>
               <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-2">
                 {role.tasks.map((task, index) => (
@@ -103,7 +88,7 @@ function getStatusVariant(status: ProjectStatusType): BadgeVariant {
     case '운영 중':
       return 'success'
     case '버전 1.0':
-      return 'secondary'
+      return 'outline'
     case '개발 중':
       return 'default'
     case 'MVP':

@@ -5,8 +5,8 @@ import dynamic from "next/dynamic"
 import { motion } from "framer-motion"
 import { projects } from "@/data/projects"
 import type { Project } from "@/types/project"
+import { SectionHeader } from "@/components/sections/SectionHeader"
 
-// 동적 임포트로 ProjectCard 컴포넌트 분리
 const ProjectCard = dynamic(
   () => import("@/components/ProjectCard").then(mod => mod.ProjectCard),
   {
@@ -27,7 +27,7 @@ const container = {
 }
 
 const item = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 24 },
   show: { 
     opacity: 1, 
     y: 0,
@@ -56,19 +56,19 @@ function ProjectCardSkeleton() {
 
 export default function ProjectsSection() {
   return (
-    <section id="projects" className="container py-24">
+    <section id="projects" className="container pt-24 lg:pt-32 flex flex-col gap-8">
+      <SectionHeader 
+        title="프로젝트" 
+        description="PROJECTS MUST BE DONE!"
+      />
       <motion.div
         variants={container}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, margin: "-100px" }}
+        viewport={{ once: false, margin: "-100px" }}
         className="space-y-8"
       >
-        <div className="space-y-2">
-          <h2 className="text-3xl font-bold tracking-tight">프로젝트</h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <Suspense fallback={<ProjectCardSkeleton />}>
             {projects.map((project: Project) => (
               <motion.div key={project.id} variants={item}>

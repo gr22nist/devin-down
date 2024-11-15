@@ -1,6 +1,11 @@
+"use client"
+
 import { useState } from "react"
 import { Section } from "./Section"
 import { AccordionCard } from "./AccordionCard"
+import { Badge } from "../ui/badge"
+import { Button } from "../ui/button"
+import { ChevronDown, ChevronUp } from "lucide-react"
 
 interface Challenge {
   title: string
@@ -14,18 +19,61 @@ interface ChallengesProps {
 }
 
 export function Challenges({ challenges }: ChallengesProps) {
-  const [openIndex, setOpenIndex] = useState(-1)
+  const [openIndexes, setOpenIndexes] = useState<number[]>(
+    challenges.map((_, index) => index)
+  )
+  const allOpen = openIndexes.length === challenges.length
+
+  const toggleAll = () => {
+    if (allOpen) {
+      setOpenIndexes([])
+    } else {
+      setOpenIndexes(challenges.map((_, index) => index))
+    }
+  }
+
+  const toggleItem = (index: number) => {
+    setOpenIndexes(prev => 
+      prev.includes(index) 
+        ? prev.filter(i => i !== index)
+        : [...prev, index]
+    )
+  }
 
   return (
-    <Section title="도전 과제">
+    <Section 
+      title="도전 과제"
+      action={
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={toggleAll}
+          className="flex items-center gap-1"
+        >
+          {allOpen ? (
+            <>
+              <ChevronUp className="h-4 w-4" />
+              모두 접기
+            </>
+          ) : (
+            <>
+              <ChevronDown className="h-4 w-4" />
+              모두 펼치기
+            </>
+          )}
+        </Button>
+      }
+    >
       <div className="grid gap-4">
         {challenges.map((challenge, index) => (
           <AccordionCard
             key={index}
             title={challenge.title}
-            tags={challenge.tags}
-            isOpen={openIndex === index}
-            onToggle={() => setOpenIndex(openIndex === index ? -1 : index)}
+            tags={challenge.tags?.map(tag => (
+              <Badge key={tag} variant="secondary">{tag}</Badge>
+            ))}
+            isOpen={openIndexes.includes(index)}
+            onToggle={() => toggleItem(index)}
           >
             <div className="space-y-4">
               <div>

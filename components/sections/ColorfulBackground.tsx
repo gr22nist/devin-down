@@ -2,28 +2,14 @@
 
 import { cn } from "@/lib/utils"
 import { useScroll, motion, useTransform } from "framer-motion"
-import { useEffect, useState } from "react"
 
 export function ColorfulBackground({ isDetailPage = false }) {
   const { scrollY } = useScroll()
   const opacity = useTransform(
     scrollY,
     [0, 500],
-    isDetailPage ? [1, 1] : [1, 0]
+    isDetailPage ? [0.5, 0.2] : [0.5, 0.3]
   )
-  
-  const [particleCount, setParticleCount] = useState(50)
-
-  useEffect(() => {
-    const updateParticleCount = () => {
-      const isMobile = window.innerWidth < 768
-      setParticleCount(isMobile ? 20 : 40)
-    }
-
-    updateParticleCount()
-    window.addEventListener('resize', updateParticleCount)
-    return () => window.removeEventListener('resize', updateParticleCount)
-  }, [])
 
   return (
     <motion.div
@@ -33,29 +19,8 @@ export function ColorfulBackground({ isDetailPage = false }) {
         isDetailPage ? "z-0" : "z-10"
       )}
     >
-      <div className="absolute inset-0 bg-grid-white/[0.02]" />
-      <div className="absolute inset-0">
-        {Array.from({ length: particleCount }).map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 bg-primary/20 rounded-full"
-            animate={{
-              x: ["0%", "100%", "0%"],
-              y: ["0%", "100%", "0%"],
-            }}
-            transition={{
-              duration: Math.random() * 10 + 20,
-              repeat: Infinity,
-              ease: "linear",
-              delay: -Math.random() * 20,
-            }}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-          />
-        ))}
-      </div>
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20 dark:from-blue-500/10 dark:via-purple-500/10 dark:to-pink-500/10" />
+      <div className="absolute inset-0 [mask-image:url(/images/noise.svg)] [mask-size:100px] opacity-25" />
     </motion.div>
   )
 }

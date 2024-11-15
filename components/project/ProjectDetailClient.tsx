@@ -1,24 +1,41 @@
 "use client"
 
+import dynamic from 'next/dynamic'
+import { Suspense } from 'react'
 import { motion } from "framer-motion"
 import { ProjectBackground } from "./ProjectBackground"
 import { ProjectHeader } from "./ProjectHeader"
-import { ProjectOverview } from "./ProjectOverview"
-import { TechStacks } from "./TechStacks"
-import { Challenges } from "./Challenges"
-import { TroubleShooting } from "./TroubleShooting"
-import { Features } from "./Features"
-import { Metrics } from "./Metrics"
-import { Gallery } from "./Gallery"
 import type { Project } from "@/types/project"
+import { ProjectSkeleton } from './ProjectSkeleton'
+
+// 동적 임포트로 변경
+const ProjectOverview = dynamic(() => import('./ProjectOverview').then(mod => mod.ProjectOverview), {
+  loading: () => <ProjectSkeleton />
+})
+const TechStacks = dynamic(() => import('./TechStacks').then(mod => mod.TechStacks), {
+  loading: () => <ProjectSkeleton />
+})
+const Features = dynamic(() => import('./Features').then(mod => mod.Features), {
+  loading: () => <ProjectSkeleton />
+})
+const Challenges = dynamic(() => import('./Challenges').then(mod => mod.Challenges), {
+  loading: () => <ProjectSkeleton />
+})
+const TroubleShooting = dynamic(() => import('./TroubleShooting').then(mod => mod.TroubleShooting), {
+  loading: () => <ProjectSkeleton />
+})
+const Metrics = dynamic(() => import('./Metrics').then(mod => mod.Metrics), {
+  loading: () => <ProjectSkeleton />
+})
+const Gallery = dynamic(() => import('./Gallery').then(mod => mod.Gallery), {
+  loading: () => <ProjectSkeleton />
+})
 
 interface ProjectDetailClientProps {
   project: Project
 }
 
 export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
-  console.log('Features:', project.content.features);
-  
   return (
     <div className="min-h-screen text-foreground">
       <ProjectBackground />
@@ -41,66 +58,75 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
 
             {/* 2. 갤러리 */}
             {project.gallery && (
-              <div className="w-full">
-                <Gallery 
-                  images={project.gallery}
-                  title={project.title}
-                  className="rounded-lg overflow-hidden"
-                />
-              </div>
+              <Suspense fallback={<ProjectSkeleton />}>
+                <div className="w-full">
+                  <Gallery 
+                    images={project.gallery}
+                    title={project.title}
+                    className="rounded-lg overflow-hidden"
+                  />
+                </div>
+              </Suspense>
             )}
 
             {/* 3. 프로젝트 상세 정보 */}
-            <div className="grid lg:grid-cols-2 gap-6">
+            <div className="grid xl:grid-cols-2 gap-6">
               {/* 왼쪽: 프로젝트 개요 */}
               <div className="order-first">
-                <div className="lg:sticky lg:top-20">
-                  <div className="p-6 rounded-lg border bg-card/80 backdrop-blur-sm">
-                    <ProjectOverview 
-                      overview={project.content.overview}
-                      tech={project.tech}
-                      role={project.content.role}
-                      links={project.links}
-                      status={project.status}
-                      period={project.period}
-                    />
-                  </div>
+                <div className="xl:sticky xl:top-20">
+                  <Suspense fallback={<ProjectSkeleton />}>
+                    <div className="p-6 rounded-lg border bg-card/80 backdrop-blur-sm">
+                      <ProjectOverview 
+                        overview={project.content.overview}
+                        tech={project.tech}
+                        role={project.content.role}
+                        links={project.links}
+                        status={project.status}
+                        period={project.period}
+                      />
+                    </div>
+                  </Suspense>
                 </div>
               </div>
 
               {/* 오른쪽: 상세 내용 */}
               <div className="space-y-6">
-                {/* 기술 스택 및 선정 이유 */}
-                <div className="p-6 rounded-lg border bg-card/80 backdrop-blur-sm">
-                  <TechStacks stacks={project.content.techStacks} />
-                </div>
+                <Suspense fallback={<ProjectSkeleton />}>
+                  <div className="p-6 rounded-lg border bg-card/80 backdrop-blur-sm">
+                    <TechStacks stacks={project.content.techStacks} />
+                  </div>
+                </Suspense>
 
-                {/* 주요 기능 */}
                 {project.content.features && project.content.features.length > 0 && (
-                  <div className="p-6 rounded-lg border bg-card/80 backdrop-blur-sm">
-                    <Features features={project.content.features} />
-                  </div>
+                  <Suspense fallback={<ProjectSkeleton />}>
+                    <div className="p-6 rounded-lg border bg-card/80 backdrop-blur-sm">
+                      <Features features={project.content.features} />
+                    </div>
+                  </Suspense>
                 )}
 
-                {/* 도전 과제 */}
                 {project.content.challenges && (
-                  <div className="p-6 rounded-lg border bg-card/80 backdrop-blur-sm">
-                    <Challenges challenges={project.content.challenges} />
-                  </div>
+                  <Suspense fallback={<ProjectSkeleton />}>
+                    <div className="p-6 rounded-lg border bg-card/80 backdrop-blur-sm">
+                      <Challenges challenges={project.content.challenges} />
+                    </div>
+                  </Suspense>
                 )}
 
-                {/* 트러블 슈팅 */}
                 {project.content.troubleShooting && (
-                  <div className="p-6 rounded-lg border bg-card/80 backdrop-blur-sm">
-                    <TroubleShooting items={project.content.troubleShooting} />
-                  </div>
+                  <Suspense fallback={<ProjectSkeleton />}>
+                    <div className="p-6 rounded-lg border bg-card/80 backdrop-blur-sm">
+                      <TroubleShooting items={project.content.troubleShooting} />
+                    </div>
+                  </Suspense>
                 )}
 
-                {/* 성능 지표 */}
                 {project.performance && (
-                  <div className="p-6 rounded-lg border bg-card/80 backdrop-blur-sm">
-                    <Metrics performance={project.performance} />
-                  </div>
+                  <Suspense fallback={<ProjectSkeleton />}>
+                    <div className="p-6 rounded-lg border bg-card/80 backdrop-blur-sm">
+                      <Metrics performance={project.performance} />
+                    </div>
+                  </Suspense>
                 )}
               </div>
             </div>

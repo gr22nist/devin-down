@@ -24,7 +24,7 @@ export function Features({ features }: FeaturesProps) {
             {feature.tags && (
               <div className="flex flex-wrap gap-2">
                 {feature.tags.map((tag) => (
-                  <Badge key={tag} variant="secondary">
+                  <Badge key={tag} variant="outline">
                     {tag}
                   </Badge>
                 ))}

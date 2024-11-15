@@ -31,7 +31,7 @@ const metrics = [
 
 export default function PerformanceSection() {
   return (
-    <section className="container py-24">
+    <section className="container">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}

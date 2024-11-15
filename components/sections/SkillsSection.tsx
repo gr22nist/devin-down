@@ -6,6 +6,9 @@ import { skills } from "@/data/skills"
 import Image from "next/image"
 import { IconSet } from "@/components/icons/IconSet"
 import type { IconType } from "@/types/skill"
+import { shadowStyles } from '@/lib/styles'
+import { cn } from "@/lib/utils"
+import { SectionHeader } from "@/components/sections/SectionHeader"
 
 const container = {
   hidden: { opacity: 0 },
@@ -24,16 +27,18 @@ const item = {
     opacity: 1, 
     y: 0,
     transition: {
-      type: "spring",
-      stiffness: 100,
-      damping: 10
+      duration: 0.5,
+      ease: "easeOut"
     }
   }
 }
 
 const hoverEffect = {
-  scale: 1.03,
-  transition: { type: "spring", stiffness: 400, damping: 10 }
+  scale: 1.02,
+  transition: { 
+    duration: 0.3,
+    ease: "easeOut"
+  }
 }
 
 function renderIcon(icon: IconType) {
@@ -68,15 +73,11 @@ export default function SkillsSection() {
   const categories = ['frontend', 'tools'] as const
   
   return (
-    <section id="skills" className="container py-24 space-y-8">
-      {/* 헤더 */}
-      <div className="space-y-2">
-        <h2 className="text-3xl font-bold">스킬</h2>
-        <p className="text-muted-foreground">
-          보유 기술 스택과 툴입니다
-        </p>
-      </div>
-
+    <section id="skills" className="container pt-24 lg:pt-32 flex flex-col gap-8">
+      <SectionHeader 
+        title="스킬" 
+        description="SKILLS: DOWNLOADING... (99%)"
+      />
       {/* 스킬 카드 */}
       <div className="space-y-12">
         {categories.map(category => (
@@ -89,7 +90,7 @@ export default function SkillsSection() {
               initial="hidden"
               whileInView="show"
               viewport={{ once: true, margin: "-100px" }}
-              className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
+              className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
             >
               {skills
                 .filter(skill => skill.category === category)
@@ -100,11 +101,14 @@ export default function SkillsSection() {
                     whileHover={hoverEffect}
                   >
                     <Card 
-                      className="h-full p-4 transition-colors hover:bg-accent border-t-4" 
+                      className={cn(
+                          shadowStyles.card.full,
+                        "h-full p-4 transition-colors hover:bg-muted border-t-4"
+                      )} 
                       style={{
                         borderColor: 
-                          category === 'frontend' ? 'rgb(59, 130, 246)' : // 파란색
-                          'rgb(168, 85, 247)'                             // 보라색
+                          category === 'frontend' ? 'rgb(59, 130, 246)' :
+                          'rgb(168, 85, 247)'                             
                       }}
                     >
                       <div className="flex items-center gap-2">

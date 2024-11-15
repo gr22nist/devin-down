@@ -32,7 +32,7 @@ export function ProjectNavigation() {
   }, [])
 
   return (
-    <nav className="fixed right-8 top-1/2 -translate-y-1/2 space-y-4 z-30 hidden md:block">
+    <nav className="fixed right-8 top-1/2 -translate-y-1/2 space-y-4 z-40 hidden xl:block">
       {sections.map(({ id, label }) => (
         <button
           key={id}

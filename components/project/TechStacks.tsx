@@ -17,7 +17,7 @@ export function TechStacks({ stacks }: TechStacksProps) {
           <div key={index} className="relative">
             <div className="flex items-center gap-3 mb-4">
               <h3 className="text-xl font-semibold">{stack.name}</h3>
-              <Badge variant="outline" className="bg-white/5">{stack.name}</Badge>
+              <Badge variant="outline">{stack.name}</Badge>
             </div>
             <div className="space-y-3 pl-4 border-l-2 border-border">
               <p className="text-muted-foreground">{stack.reason}</p>

@@ -1,10 +1,10 @@
-import { Badge } from "@/components/ui/badge"
 import { ChevronDown } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
+import { cn } from "@/lib/utils"
 
 interface AccordionCardProps {
   title: string
-  tags?: string[]
+  tags?: React.ReactNode[]
   isOpen: boolean
   onToggle: () => void
   children: React.ReactNode
@@ -12,27 +12,24 @@ interface AccordionCardProps {
 
 export function AccordionCard({ title, tags, isOpen, onToggle, children }: AccordionCardProps) {
   return (
-    <div className="border rounded-lg bg-card overflow-hidden">
+    <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
       <button
-        className="w-full px-4 py-3 flex items-start justify-between hover:bg-accent/50"
         onClick={onToggle}
+        className="flex w-full items-center justify-between p-4"
       >
-        <div className="flex-1 text-left">
-          <div className="flex items-center gap-2">
-            <h3 className="text-lg font-semibold text-foreground">{title}</h3>
-            {tags && (
-              <div className="flex gap-2">
-                {tags.map((tag) => (
-                  <Badge key={tag} variant="secondary" className="text-xs">
-                    {tag}
-                  </Badge>
-                ))}
-              </div>
-            )}
+        <div className="flex items-center gap-3">
+          <h3 className="text-lg font-medium">{title}</h3>
+          <div className="flex gap-2">
+            {tags?.map((tag, index) => (
+              <div key={index}>{tag}</div>
+            ))}
           </div>
         </div>
-        <ChevronDown 
-          className={`h-4 w-4 transition-transform flex-shrink-0 ml-4 mt-1.5 ${isOpen ? 'rotate-180' : ''}`} 
+        <ChevronDown
+          className={cn(
+            "h-4 w-4 shrink-0 transition-transform duration-200",
+            isOpen && "rotate-180"
+          )}
         />
       </button>
       <AnimatePresence initial={false}>
@@ -44,7 +41,7 @@ export function AccordionCard({ title, tags, isOpen, onToggle, children }: Accor
             transition={{ duration: 0.2 }}
             className="overflow-hidden"
           >
-            <div className="p-4 border-t">
+            <div className="p-4">
               {children}
             </div>
           </motion.div>

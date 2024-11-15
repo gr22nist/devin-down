@@ -137,11 +137,9 @@ export function Metrics({ performance }: MetricsProps) {
             <TabsList className="grid grid-cols-2 gap-2">
               <TabsTrigger value="desktop">
                 <Monitor className="w-4 h-4 mr-1" />
-                데스크톱
               </TabsTrigger>
               <TabsTrigger value="mobile">
                 <Smartphone className="w-4 h-4 mr-1" />
-                모바일
               </TabsTrigger>
             </TabsList>
           </div>
@@ -186,7 +184,7 @@ const MetricsContent = ({ metrics }: { metrics?: PerformanceMetrics }) => {
         transition={{ duration: 0.4 }}
         className="flex items-center justify-between p-4 rounded-lg bg-card"
       >
-        <span className="text-sm font-bold text-muted-foreground">
+        <span className="font-bold text-foreground">
           Performance Score
         </span>
         <div className="flex items-baseline gap-1">

@@ -11,9 +11,9 @@ export const ScrollProgress = () => {
   })
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 h-1 bg-muted z-50">
+    <div className="fixed bottom-0 left-0 right-0 h-1 bg-primary-foreground z-40">
       <motion.div
-        className="h-full bg-primary origin-left"
+        className="h-full bg-accent/80 origin-left"
         style={{ scaleX }}
       />
     </div>

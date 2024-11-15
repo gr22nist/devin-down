@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { motion, AnimatePresence } from 'framer-motion'
 
 interface GalleryProps {
   images: string[]
@@ -22,6 +23,9 @@ export function Gallery({
 }: GalleryProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
 
+  const next = () => setCurrentIndex((prev) => (prev + 1) % images.length)
+  const prev = () => setCurrentIndex((prev) => (prev - 1 + images.length) % images.length)
+
   return (
     <Card className={cn(
       "relative overflow-hidden group",
@@ -32,14 +36,44 @@ export function Gallery({
         isModal && "aspect-auto max-h-[80vh]",
         "relative"
       )}>
-        <Image
-          src={images[currentIndex]}
-          alt={`${title} 스크린샷 ${currentIndex + 1}`}
-          fill
-          className="object-cover"
-          priority={currentIndex === 0}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        />
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentIndex}
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -100 }}
+            transition={{ duration: 0.3 }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={images[currentIndex]}
+              alt={`${title} 스크린샷 ${currentIndex + 1}`}
+              fill
+              className="object-cover"
+              priority={currentIndex === 0}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          </motion.div>
+        </AnimatePresence>
+
+        <div className="absolute inset-0 flex items-center justify-between p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+          <Button
+            variant="outline"
+            size="icon"
+            className="w-10 h-10 rounded-full bg-secondary/90 hover:bg-secondary dark:bg-secondary/80 dark:hover:bg-secondary border-none shadow-lg"
+            onClick={prev}
+          >
+            <ChevronLeft className="h-6 w-6 text-background dark:text-background" />
+          </Button>
+          <Button
+            variant="outline"
+            size="icon"
+            className="w-10 h-10 rounded-full bg-secondary/90 hover:bg-secondary dark:bg-secondary/80 dark:hover:bg-secondary border-none shadow-lg"
+            onClick={next}
+          >
+            <ChevronRight className="h-6 w-6 text-background dark:text-background" />
+          </Button>
+        </div>
 
         <div className="absolute inset-x-0 bottom-4 flex justify-center gap-2">
           {images.map((_, index) => (
@@ -48,31 +82,12 @@ export function Gallery({
               className={cn(
                 "w-1.5 h-1.5 rounded-full transition-all",
                 currentIndex === index 
-                  ? "bg-white w-3"
-                  : "bg-white/50 hover:bg-white/70"
+                  ? "bg-primary dark:bg-primary w-3" 
+                  : "bg-primary/50 hover:bg-primary/70 dark:bg-primary/50 dark:hover:bg-primary/70"
               )}
               onClick={() => setCurrentIndex(index)}
             />
           ))}
-        </div>
-
-        <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between p-4 opacity-0 group-hover:opacity-100 transition-opacity">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-8 w-8 rounded-full bg-background/50 backdrop-blur-sm"
-            onClick={() => setCurrentIndex((i) => (i - 1 + images.length) % images.length)}
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-8 w-8 rounded-full bg-background/50 backdrop-blur-sm"
-            onClick={() => setCurrentIndex((i) => (i + 1) % images.length)}
-          >
-            <ChevronRight className="h-4 w-4" />
-          </Button>
         </div>
       </div>
     </Card>

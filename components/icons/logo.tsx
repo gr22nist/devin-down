@@ -1,26 +1,18 @@
+"use client"
+
 import { useTheme } from "next-themes"
+import { useEffect, useState } from "react"
 
 export function LogoIcon({ className }: { className?: string }) {
   const { theme } = useTheme()
-  
-  if (theme === 'dark') {
-    return (
-      <svg 
-        width="32" 
-        height="34" 
-        viewBox="0 0 32 34" 
-        fill="currentColor"
-        className={className}
-      >
-        <path d="M16.7075 0C21.6729 0 25.3065 1.33719 28.0656 4.15485C31.1125 7.3068 32.4931 11.7959 31.8419 16.4761C31.204 21.0608 28.6763 25.5022 24.9022 28.6064C20.9716 31.8061 17.1291 33 10.9223 33H6.33874C2.80561 33 1.40525 32.4269 0.423025 30.5644C-0.0992196 29.5137 -0.136138 28.7496 0.302421 25.5977L2.82745 7.45007C3.33246 3.82055 3.55543 3.24747 4.73749 1.95803C6.01504 0.668596 7.7314 0 10.0709 0H16.7075ZM13.2868 10.1722L11.5193 22.8755C15.2978 22.8278 16.2249 22.6845 17.5992 21.7294C19.382 20.5832 20.7114 18.5774 21.0038 16.4761C21.3294 14.136 20.2638 11.8437 18.2548 10.8408C17.3186 10.3632 16.1038 10.1722 14.194 10.1722H13.2868Z" fill="url(#paint0_angular_2149_1725)"/>
-        <defs>
-          <radialGradient id="paint0_angular_2149_1725" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(34.182 18.8562) rotate(-104.042) scale(23.6131 49.9505)">
-            <stop stopColor="#22CFFF"/>
-            <stop offset="1" stopColor="#A837FF"/>
-          </radialGradient>
-        </defs>
-      </svg>
-    )
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return null
   }
 
   return (
@@ -30,11 +22,32 @@ export function LogoIcon({ className }: { className?: string }) {
       viewBox="0 0 32 34" 
       className={className}
     >
-      <path d="M16.7075 0.0410156C21.6729 0.0410156 25.3065 1.37821 28.0656 4.19586C31.1125 7.34782 32.4931 11.837 31.8419 16.5171C31.204 21.1018 28.6763 25.5432 24.9022 28.6474C20.9716 31.8471 17.1291 33.041 10.9223 33.041H6.33874C2.80561 33.041 1.40525 32.4679 0.423025 30.6054C-0.0992196 29.5548 -0.136138 28.7907 0.302421 25.6387L2.82745 7.49109C3.33246 3.86157 3.55543 3.28848 4.73749 1.99905C6.01504 0.709612 7.7314 0.0410156 10.0709 0.0410156H16.7075ZM13.2868 10.2132L11.5193 22.9166C15.2978 22.8688 16.2249 22.7255 17.5992 21.7704C19.382 20.6242 20.7114 18.6184 21.0038 16.5171C21.3294 14.177 20.2638 11.8847 18.2548 10.8818C17.3186 10.4043 16.1038 10.2132 14.194 10.2132H13.2868Z" fill="url(#paint0_angular_2149_1724)"/>
-        <defs>
-        <radialGradient id="paint0_angular_2149_1724" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(34.182 18.8972) rotate(-104.042) scale(23.6131 49.9505)">
-          <stop stopColor="#00A8D7"/>
-          <stop offset="1" stopColor="#8B00F5"/>
+      <path
+        d="M16.7075 0C21.6729 0 25.3065 1.33719 28.0656 4.15485C31.1125 7.3068 32.4931 11.7959 31.8419 16.4761C31.204 21.0608 28.6763 25.5022 24.9022 28.6064C20.9716 31.8061 17.1291 33 10.9223 33H6.33874C2.80561 33 1.40525 32.4269 0.423025 30.5644C-0.0992196 29.5137 -0.136138 28.7496 0.302421 25.5977L2.82745 7.45007C3.33246 3.82055 3.55543 3.24747 4.73749 1.95803C6.01504 0.668596 7.7314 0 10.0709 0H16.7075ZM13.2868 10.1722L11.5193 22.8755C15.2978 22.8278 16.2249 22.6845 17.5992 21.7294C19.382 20.5832 20.7114 18.5774 21.0038 16.4761C21.3294 14.136 20.2638 11.8437 18.2548 10.8408C17.3186 10.3632 16.1038 10.1722 14.194 10.1722H13.2868Z"
+        fill={theme === 'dark' ? "url(#paint0_angular_dark)" : "url(#paint0_angular_light)"}
+      />
+      <defs>
+        <radialGradient
+          id="paint0_angular_dark"
+          cx="0"
+          cy="0"
+          r="1"
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="translate(34.182 18.8562) rotate(-104.042) scale(23.6131 49.9505)"
+        >
+          <stop stopColor="#22CFFF" />
+          <stop offset="1" stopColor="#A837FF" />
+        </radialGradient>
+        <radialGradient
+          id="paint0_angular_light"
+          cx="0"
+          cy="0"
+          r="1"
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="translate(34.182 18.8562) rotate(-104.042) scale(23.6131 49.9505)"
+        >
+          <stop stopColor="#00A8D7" />
+          <stop offset="1" stopColor="#8B00F5" />
         </radialGradient>
       </defs>
     </svg>

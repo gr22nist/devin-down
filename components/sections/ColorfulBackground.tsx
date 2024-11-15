@@ -1,8 +1,26 @@
 "use client"
 
-export const ColorfulBackground = () => (
-  <div className="fixed inset-0 -z-10 opacity-30 dark:opacity-20">
-    <div className="absolute inset-0 bg-gradient-to-br from-pink-300 via-purple-300 to-indigo-400 dark:from-pink-900 dark:via-purple-900 dark:to-indigo-950" />
-    <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSIjZmZmIj48L3JlY3Q+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiNjY2MiPjwvcmVjdD4KPC9zdmc+')] opacity-10" />
-  </div>
-)
+import { cn } from "@/lib/utils"
+import { useScroll, motion, useTransform } from "framer-motion"
+
+export function ColorfulBackground({ isDetailPage = false }) {
+  const { scrollY } = useScroll()
+  const opacity = useTransform(
+    scrollY,
+    [0, 500],
+    isDetailPage ? [0.5, 0.2] : [0.5, 0.3]
+  )
+
+  return (
+    <motion.div
+      style={{ opacity }}
+      className={cn(
+        "fixed inset-0 pointer-events-none",
+        isDetailPage ? "z-0" : "z-10"
+      )}
+    >
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20 dark:from-blue-500/10 dark:via-purple-500/10 dark:to-pink-500/10" />
+      <div className="absolute inset-0 [mask-image:url(/images/noise.svg)] [mask-size:100px] opacity-25" />
+    </motion.div>
+  )
+}

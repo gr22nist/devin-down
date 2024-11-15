@@ -133,15 +133,13 @@ export function Metrics({ performance }: MetricsProps) {
       {hasMobile && hasDesktop ? (
         <Tabs defaultValue="desktop">
           <div className="flex items-center justify-between">
-            <h2 className="text-base font-semibold">성능 지표</h2>
+            <h2 className="text-xl font-semibold">성능 지표</h2>
             <TabsList className="grid grid-cols-2 gap-2">
               <TabsTrigger value="desktop">
                 <Monitor className="w-4 h-4 mr-1" />
-                데스크톱
               </TabsTrigger>
               <TabsTrigger value="mobile">
                 <Smartphone className="w-4 h-4 mr-1" />
-                모바일
               </TabsTrigger>
             </TabsList>
           </div>
@@ -155,7 +153,7 @@ export function Metrics({ performance }: MetricsProps) {
       ) : (
         <div>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-base font-semibold">성능 지표</h2>
+            <h2 className="text-xl font-semibold">성능 지표</h2>
             <div className="flex items-center gap-2">
               {hasDesktop && <Monitor className="w-4 h-4" />}
               {hasMobile && <Smartphone className="w-4 h-4" />}
@@ -186,7 +184,7 @@ const MetricsContent = ({ metrics }: { metrics?: PerformanceMetrics }) => {
         transition={{ duration: 0.4 }}
         className="flex items-center justify-between p-4 rounded-lg bg-card"
       >
-        <span className="text-sm font-bold text-muted-foreground">
+        <span className="font-bold text-foreground">
           Performance Score
         </span>
         <div className="flex items-baseline gap-1">

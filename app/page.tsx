@@ -4,7 +4,6 @@ import { motion } from "framer-motion"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
 import { useEffect, useRef } from "react"
-import { Button } from "@/components/ui/button"
 
 const PARTICLE_COUNT = 40
 const PARTICLE_SPEED = 0.3
@@ -71,6 +70,14 @@ export default function IntroPage() {
     }
   }, [])
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      router.push("/main")
+    }, 1700)
+
+    return () => clearTimeout(timer)
+  }, [router])
+
   return (
     <div className="h-screen bg-background overflow-hidden relative flex flex-col items-center justify-center">
       <canvas
@@ -79,22 +86,19 @@ export default function IntroPage() {
       />
 
       <motion.div
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
+        className="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
         initial={{ scale: 0, rotate: -180 }}
         animate={{ 
-          scale: [0, 4, 110],
+          scale: [0, 1, 2.5, 110],
           rotate: [-180, 0, 0],
         }}
         transition={{ 
-          duration: 2.8,
-          times: [0, 0.3, 1],
-          ease: [0.16, 1, 0.3, 1],
+          duration: 1.5,
+          times: [0, 0.4, 1.5],
+          ease: "easeInOut",
         }}
         onAnimationStart={() => {
           router.prefetch('/main')
-        }}
-        onAnimationComplete={() => {
-          router.push("/main")
         }}
       >
         <Image
@@ -113,14 +117,6 @@ export default function IntroPage() {
         transition={{ duration: 0.3 }}
         className="absolute left-1/2 bottom-10 -translate-x-1/2"
       >
-        <Button
-          variant="outline"
-          size="sm"
-          className="text-muted-foreground hover:text-foreground transition-colors text-sm px-6"
-          onClick={() => router.push("/main")}
-        >
-          Skip
-        </Button>
       </motion.div>
     </div>
   )

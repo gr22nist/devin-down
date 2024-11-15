@@ -28,7 +28,6 @@ export default async function ProjectPage(props: Props) {
     </div>
   )
 }
-
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params;
   const project = projects.find(p => p.id === params.id)

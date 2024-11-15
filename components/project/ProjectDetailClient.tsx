@@ -2,31 +2,38 @@
 
 import dynamic from 'next/dynamic'
 import { Suspense } from 'react'
-import { motion } from 'framer-motion'
-import type { Project } from '@/types/project'
-import { ProjectContent } from './ProjectContent'
+import { motion } from "framer-motion"
 import { ProjectBackground } from "./ProjectBackground"
-import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { ExternalLink, Github } from "lucide-react"
-import { ProjectHeader } from './ProjectHeader'
-import { cn } from "@/lib/utils"
+import { ProjectHeader } from "./ProjectHeader"
+import type { Project } from "@/types/project"
+import { ProjectSkeleton } from './ProjectSkeleton'
+
+// 동적 임포트로 변경
+const ProjectOverview = dynamic(() => import('./ProjectOverview').then(mod => mod.ProjectOverview), {
+  loading: () => <ProjectSkeleton />
+})
+const TechStacks = dynamic(() => import('./TechStacks').then(mod => mod.TechStacks), {
+  loading: () => <ProjectSkeleton />
+})
+const Features = dynamic(() => import('./Features').then(mod => mod.Features), {
+  loading: () => <ProjectSkeleton />
+})
+const Challenges = dynamic(() => import('./Challenges').then(mod => mod.Challenges), {
+  loading: () => <ProjectSkeleton />
+})
+const TroubleShooting = dynamic(() => import('./TroubleShooting').then(mod => mod.TroubleShooting), {
+  loading: () => <ProjectSkeleton />
+})
+const Metrics = dynamic(() => import('./Metrics').then(mod => mod.Metrics), {
+  loading: () => <ProjectSkeleton />
+})
+const Gallery = dynamic(() => import('./Gallery').then(mod => mod.Gallery), {
+  loading: () => <ProjectSkeleton />
+})
 
 interface ProjectDetailClientProps {
   project: Project
 }
-
-const Gallery = dynamic(() => import('@/components/project/Gallery').then(mod => mod.Gallery), {
-  loading: () => (
-    <div className="max-w-4xl mx-auto">
-      <div className="aspect-video animate-pulse bg-muted rounded-lg" />
-    </div>
-  ),
-  ssr: true
-})
-
-const Metrics = dynamic(() => import('@/components/project/Metrics').then(mod => mod.Metrics))
-const Features = dynamic(() => import('@/components/project/Features').then(mod => mod.Features))
 
 export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
   return (
@@ -41,85 +48,87 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
             transition={{ duration: 0.5 }}
             className="space-y-12"
           >
-            {/* 헤더 섹션 */}
+            {/* 1. 프로젝트 소개 */}
             <div className="space-y-4">
               <h1 className="text-4xl font-bold text-center">{project.title}</h1>
               <p className="text-lg text-muted-foreground text-center max-w-2xl mx-auto">
                 {project.description}
               </p>
-              <div className="flex justify-center gap-4">
-                {project.links.demo && (
-                  <Button asChild>
-                    <a href={project.links.demo} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink className="w-4 h-4 mr-2" />
-                      데모 보기
-                    </a>
-                  </Button>
-                )}
-                <Button variant="outline" asChild>
-                  <a href={project.links.github} target="_blank" rel="noopener noreferrer">
-                    <Github className="w-4 h-4 mr-2" />
-                    깃허브
-                  </a>
-                </Button>
-              </div>
             </div>
 
-            {/* 갤러리 섹션 - 전체 너비 */}
-            <div className="w-full">
-              <Suspense fallback={<div className="aspect-video animate-pulse bg-muted rounded-lg" />}>
-                {project.gallery && (
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <div className="cursor-pointer">
-                        <Gallery 
-                          images={project.gallery} 
-                          title={project.title}
-                          className="rounded-lg overflow-hidden"
-                        />
-                      </div>
-                    </DialogTrigger>
-                    <DialogContent className="max-w-screen-lg max-h-[90vh] overflow-y-auto">
-                      <DialogTitle className="sr-only">{project.title} 갤러리</DialogTitle>
-                      <Gallery 
-                        images={project.gallery} 
-                        title={project.title}
-                        isModal
-                        autoPlay={false}
-                      />
-                    </DialogContent>
-                  </Dialog>
-                )}
-              </Suspense>
-            </div>
-
-            {/* 프로젝트 정보 섹션 */}
-            <div className="grid lg:grid-cols-3 gap-6">
-              {/* 프로젝트 개요 & 성능 지표 */}
-              <div className={cn(
-                "space-y-6",
-                project.performance ? "lg:col-span-2" : "lg:col-span-3"
-              )}>
-                <ProjectContent 
-                  content={project.content} 
-                  tech={project.tech}
-                  links={project.links}
-                />
-              </div>
-              
-              {/* 성능 지표 */}
-              {project.performance && (
-                <div className="lg:col-span-1">
-                  <div className="sticky top-20 bg-card rounded-lg p-6">
-                    <Metrics performance={project.performance} />
-                  </div>
+            {/* 2. 갤러리 */}
+            {project.gallery && (
+              <Suspense fallback={<ProjectSkeleton />}>
+                <div className="w-full">
+                  <Gallery 
+                    images={project.gallery}
+                    title={project.title}
+                    className="rounded-lg overflow-hidden"
+                  />
                 </div>
-              )}
-            </div>
+              </Suspense>
+            )}
 
-            {/* 주요 기능 */}
-            <div className="p-6 rounded-lg border bg-card">
-              <Features features={project.features} />
+            {/* 3. 프로젝트 상세 정보 */}
+            <div className="grid xl:grid-cols-2 gap-6">
+              {/* 왼쪽: 프로젝트 개요 */}
+              <div className="order-first">
+                <div className="xl:sticky xl:top-20">
+                  <Suspense fallback={<ProjectSkeleton />}>
+                    <div className="p-6 rounded-lg border bg-card/80 backdrop-blur-sm">
+                      <ProjectOverview 
+                        overview={project.content.overview}
+                        tech={project.tech}
+                        role={project.content.role}
+                        links={project.links}
+                        status={project.status}
+                        period={project.period}
+                      />
+                    </div>
+                  </Suspense>
+                </div>
+              </div>
+
+              {/* 오른쪽: 상세 내용 */}
+              <div className="space-y-6">
+                <Suspense fallback={<ProjectSkeleton />}>
+                  <div className="p-6 rounded-lg border bg-card/80 backdrop-blur-sm">
+                    <TechStacks stacks={project.content.techStacks} />
+                  </div>
+                </Suspense>
+
+                {project.content.features && project.content.features.length > 0 && (
+                  <Suspense fallback={<ProjectSkeleton />}>
+                    <div className="p-6 rounded-lg border bg-card/80 backdrop-blur-sm">
+                      <Features features={project.content.features} />
+                    </div>
+                  </Suspense>
+                )}
+
+                {project.content.challenges && (
+                  <Suspense fallback={<ProjectSkeleton />}>
+                    <div className="p-6 rounded-lg border bg-card/80 backdrop-blur-sm">
+                      <Challenges challenges={project.content.challenges} />
+                    </div>
+                  </Suspense>
+                )}
+
+                {project.content.troubleShooting && (
+                  <Suspense fallback={<ProjectSkeleton />}>
+                    <div className="p-6 rounded-lg border bg-card/80 backdrop-blur-sm">
+                      <TroubleShooting items={project.content.troubleShooting} />
+                    </div>
+                  </Suspense>
+                )}
+
+                {project.performance && (
+                  <Suspense fallback={<ProjectSkeleton />}>
+                    <div className="p-6 rounded-lg border bg-card/80 backdrop-blur-sm">
+                      <Metrics performance={project.performance} />
+                    </div>
+                  </Suspense>
+                )}
+              </div>
             </div>
           </motion.div>
         </div>

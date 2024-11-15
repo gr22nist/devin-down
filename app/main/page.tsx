@@ -1,23 +1,55 @@
-import HeroSection from "@/components/sections/HeroSection"
-import ProjectsSection from "@/components/sections/ProjectsSection"
-import SkillsSection from "@/components/sections/SkillsSection"
-import ContactSection from "@/components/sections/ContactSection"
-import { ColorfulBackground } from "@/components/sections/ColorfulBackground"
+"use client"
 
-export default function Home() {
+import dynamic from 'next/dynamic'
+import { Suspense } from 'react'
+
+const HeroSection = dynamic(
+  () => import("@/components/sections/HeroSection"),
+  { ssr: false }
+)
+
+const AboutSection = dynamic(
+  () => import("@/components/sections/AboutSection"),
+  { ssr: false }
+)
+
+const SkillsSection = dynamic(
+  () => import("@/components/sections/SkillsSection"),
+  { ssr: false }
+)
+
+const ProjectsSection = dynamic(
+  () => import("@/components/sections/ProjectsSection"),
+  { ssr: false }
+)
+
+const ColorfulBackground = dynamic(
+  () => import("@/components/sections/ColorfulBackground").then(mod => mod.ColorfulBackground),
+  { ssr: false }
+)
+
+export default function MainPage() {
   return (
     <>
-      <ColorfulBackground />
-      <div className="flex flex-col min-h-screen">
-        <main className="flex-1">
-          <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+      <ColorfulBackground isDetailPage={false} />
+      <main className="relative">
+        <div className="h-screen">
+          <Suspense fallback={<div>Loading...</div>}>
             <HeroSection />
-            <ProjectsSection />
+          </Suspense>
+        </div>
+        <div className="relative mx-auto pb-16">
+          <Suspense fallback={<div>Loading...</div>}>
+            <AboutSection />
+          </Suspense>
+          <Suspense fallback={<div>Loading...</div>}>
             <SkillsSection />
-            <ContactSection />
-          </div>
-        </main>
-      </div>
+          </Suspense>
+          <Suspense fallback={<div>Loading...</div>}>
+            <ProjectsSection />
+          </Suspense>
+        </div>
+      </main>
     </>
   )
 }

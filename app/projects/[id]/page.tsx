@@ -5,13 +5,16 @@ import { ProjectBackground } from '@/components/project/ProjectBackground'
 import { ProjectHeader } from '@/components/project/ProjectHeader'
 import { Metadata } from "next"
 
-type Props = {
-  params: Promise<{ id: string }>
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+type Params = Promise<{ id: string }>
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
+
+interface Props {
+  params: Params
+  searchParams: SearchParams
 }
 
 export default async function ProjectPage(props: Props) {
-  const params = await props.params;
+  const params = await props.params
   const project = projects.find(p => p.id === params.id)
 
   if (!project) {
@@ -28,8 +31,9 @@ export default async function ProjectPage(props: Props) {
     </div>
   )
 }
+
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  const params = await props.params;
+  const params = await props.params
   const project = projects.find(p => p.id === params.id)
 
   if (!project) {
@@ -40,6 +44,8 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
   return {
     title: `${project.title} | DEVIN DOWN`,
-    description: project.description
+    description: Array.isArray(project.description) 
+      ? project.description.join(' ') 
+      : project.description
   }
 }

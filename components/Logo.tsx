@@ -7,13 +7,33 @@ import Image from "next/image"
 interface LogoProps {
   className?: string
   animate?: boolean
+  hideText?: boolean
 }
 
-export function Logo({ className = "", animate = false }: LogoProps) {
+export function Logo({ 
+  className = "", 
+  animate = false,
+  hideText = false 
+}: LogoProps) {
   const { theme } = useTheme()
   
   const logoSrc = theme === "dark" ? "/images/dd_dark.svg" : "/images/dd_light.svg"
   
+  const imageElement = (
+    <Image
+      src={logoSrc}
+      alt="DEVIN DOWN"
+      width={92}
+      height={40}
+      priority
+      aria-hidden={!hideText}
+    />
+  )
+  
+  const accessibleText = !hideText && (
+    <span className="sr-only">DEVIN DOWN</span>
+  )
+
   if (animate) {
     return (
       <motion.div
@@ -28,24 +48,16 @@ export function Logo({ className = "", animate = false }: LogoProps) {
         }}
         className={className}
       >
-        <Image
-          src={logoSrc}
-          alt="DEVIN DOWN Logo"
-          width={92}
-          height={40}
-          priority
-        />
+        {imageElement}
+        {accessibleText}
       </motion.div>
     )
   }
 
   return (
-    <Image
-      src={logoSrc}
-      alt="DEVIN DOWN Logo"
-      width={92}
-      height={40}
-      className={className}
-    />
+    <div className={className}>
+      {imageElement}
+      {accessibleText}
+    </div>
   )
 } 

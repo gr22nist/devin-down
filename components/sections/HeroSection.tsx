@@ -1,9 +1,63 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, useMemo, memo } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { useMousePosition } from "@/hooks/useMousePosition"
 import { useTypewriter } from "@/hooks/useTypewriter"
+
+const CodeBlock = memo(function CodeBlock() {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ 
+        delay: 2,
+        duration: 0.3
+      }}
+      className="pt-2 space-y-2"
+    >
+      <div className="flex flex-wrap gap-1">
+        <span className="text-blue-700 dark:text-blue-400">function</span>
+        <span className="text-amber-700 dark:text-amber-400">Portfolio</span>
+        <span className="text-zinc-800 dark:text-white">() {`{`}</span>
+      </div>
+
+      <div className="pl-2 sm:pl-4">
+        <div className="flex flex-wrap gap-1">
+          <span className="text-blue-700 dark:text-blue-400">return</span>
+          <span className="text-zinc-800 dark:text-white">(</span>
+        </div>
+
+        <motion.div 
+          className="pl-4 sm:pl-6 space-y-2"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 2.4 }}
+        >
+          <span className="text-purple-700 dark:text-purple-400">{`<Developer`}</span>
+          
+          <div className="pl-4 sm:pl-6 flex flex-wrap gap-1">
+            <span className="text-sky-700 dark:text-sky-400">name</span>
+            <span className="text-zinc-800 dark:text-white">=</span>
+            <span className="text-emerald-700 dark:text-emerald-400">&quot;DEVIN KIM&quot;</span>
+          </div>
+          
+          <div className="pl-4 sm:pl-6 flex flex-wrap gap-1">
+            <span className="text-sky-700 dark:text-sky-400">role</span>
+            <span className="text-zinc-800 dark:text-white">=</span>
+            <span className="text-amber-700 dark:text-amber-400">{`{role}`}</span>
+          </div>
+          
+          <span className="text-purple-700 dark:text-purple-400">{` />`}</span>
+        </motion.div>
+        
+        <span className="text-zinc-800 dark:text-white">)</span>
+      </div>
+      
+      <span className="text-zinc-800 dark:text-white">{`}`}</span>
+    </motion.div>
+  )
+})
 
 export default function HeroSection() {
   const { scrollY } = useScroll()
@@ -13,10 +67,19 @@ export default function HeroSection() {
   const moveY = useTransform(y, [0, window.innerHeight], [-10, 10])
   const opacity = useTransform(scrollY, [0, 400], [1, 0])
   const scale = useTransform(scrollY, [0, 400], [1, 0.95])
-
-  const importText = useTypewriter("import { Developer } from '@devin/profile'", 30)
-  const roleText = useTypewriter("const role = 'Frontend Developer'", 30, 1000)
   
+  const transforms = useMemo(() => ({
+    moveX,
+    moveY,
+    opacity,
+    scale
+  }), [moveX, moveY, opacity, scale])
+
+  const importText = useTypewriter("import { Developer } from '@devin/profile'", 50)
+  const roleText = useTypewriter("const role = 'Frontend Developer'", 50, 800)
+  
+  const PortfolioCode = useMemo(() => <CodeBlock />, [])
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "ArrowDown") {
@@ -38,9 +101,20 @@ export default function HeroSection() {
     return () => window.removeEventListener("keydown", handleKeyDown)
   }, [])
 
+  const FileNameLabel = memo(function FileNameLabel() {
+    return (
+      <span 
+        className="text-xs text-muted-foreground ml-2 select-none hidden sm:inline-block"
+        aria-hidden="true"
+      >
+        devin-down.js
+      </span>
+    )
+  })
+
   return (
     <>
-      <div className="w-full h-screen" />
+      <div className="w-full h-screen" aria-hidden="true" />
       
       <section 
         id="hero"
@@ -48,7 +122,8 @@ export default function HeroSection() {
       >
         <motion.div 
           className="absolute inset-0"
-          style={{ opacity }}
+          style={{ opacity: transforms.opacity }}
+          initial={false}
         >
           <div className="absolute inset-0 bg-grid-small-black/[0.05] dark:bg-grid-small-white/[0.05]" />
           <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/80 to-background" />
@@ -57,11 +132,11 @@ export default function HeroSection() {
 
         <motion.div 
           className="relative h-screen flex flex-col items-center justify-center"
-          style={{ opacity, scale }}
+          style={{ opacity: transforms.opacity, scale: transforms.scale }}
         >
           <motion.div
             className="w-full max-w-3xl mx-auto px-4"
-            style={{ x: moveX, y: moveY }}
+            style={{ x: transforms.moveX, y: transforms.moveY }}
           >
             <div className="rounded-lg border bg-card/30 backdrop-blur-sm overflow-hidden shadow-lg">
               <div className="border-b px-4 py-3 flex items-center justify-between bg-foreground/5">
@@ -71,9 +146,7 @@ export default function HeroSection() {
                     <div className="w-3 h-3 rounded-full bg-yellow-500/80 hover:bg-yellow-500 transition-colors" />
                     <div className="w-3 h-3 rounded-full bg-green-500/80 hover:bg-green-500 transition-colors" />
                   </div>
-                  <div className="text-xs text-muted-foreground ml-2 select-none hidden sm:block">
-                    devin-down.js
-                  </div>
+                  <FileNameLabel />
                 </div>
                 <div className="text-xs text-muted-foreground">
                   <span className="px-2 py-1 rounded-md bg-primary/10">main</span>
@@ -89,41 +162,7 @@ export default function HeroSection() {
                   <span className="text-zinc-800 dark:text-white">{roleText}</span>
                 </motion.div>
 
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 2 }}
-                  className="pt-2 group"
-                >
-                  <span className="text-blue-700 dark:text-blue-400">function</span>
-                  <span className="text-amber-700 dark:text-amber-400"> Portfolio</span>
-                  <span className="text-zinc-800 dark:text-white">() {`{`}</span>
-                  <div className="pl-2 sm:pl-4 mt-2">
-                    <span className="text-blue-700 dark:text-blue-400">return</span>
-                    <span className="text-zinc-800 dark:text-white"> (</span>
-                    <motion.div 
-                      className="pl-4 sm:pl-6"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 2.4 }}
-                    >
-                      <span className="text-purple-700 dark:text-purple-400">{`<Developer`}</span>
-                      <div className="pl-4 sm:pl-6">
-                        <span className="text-sky-700 dark:text-sky-400">name</span>
-                        <span className="text-zinc-800 dark:text-white">=</span>
-                        <span className="text-emerald-700 dark:text-emerald-400">&quot;DEVIN KIM&quot;</span>
-                      </div>
-                      <div className="pl-4 sm:pl-6">
-                        <span className="text-sky-700 dark:text-sky-400">role</span>
-                        <span className="text-zinc-800 dark:text-white">=</span>
-                        <span className="text-amber-700 dark:text-amber-400">{`{role}`}</span>
-                      </div>
-                      <span className="text-purple-700 dark:text-purple-400">{` />`}</span>
-                    </motion.div>
-                    <span className="text-zinc-800 dark:text-white">)</span>
-                  </div>
-                  <span className="text-zinc-800 dark:text-white">{`}`}</span>
-                </motion.div>
+                {PortfolioCode}
               </div>
             </div>
           </motion.div>

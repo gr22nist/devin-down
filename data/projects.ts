@@ -4,7 +4,7 @@ export const projects: Project[] = [
   {
     id: "portfolio",
     title: "DEVIN DOWN",
-    description: "DEVIN 다운 코드란? 포트폴리오 페이지",
+    description: "DEVIN 다운 코드! Next.js와 TypeScript로 만든 프론트엔드 포트폴리오 페이지",
     status: {
       main: "운영 중",
       additional: ["리뉴얼 예정"]
@@ -19,37 +19,63 @@ export const projects: Project[] = [
           "Tailwind CSS와 shadcn/ui로 디자인 시스템 구축",
           "Framer Motion을 활용한 인터랙션 구현",
           "다크모드 및 반응형 레이아웃 구현"
-        ]
+        ],
+        participation: 100
       },
       challenges: [
         {
-          title: "성능과 사용자 경험의 균형",
-          tags: ["성능", "UX"],
-          issue: "대용량 이미지와 애니메이션으로 인한 성능 저하 문제",
-          solution: "하이브리드 렌더링 도입, 이미지 최적화, 컴포넌트 지연 로딩 적용",
-          result: "PSI 성능 점수 95+ 달성, FCP 0.8초 달성"
+          title: "동적 컴포넌트 로딩 최적화",
+          tags: ["성능", "Next.js"],
+          issue: "프로젝트 상세 페이지의 초기 로딩 속도 저하 문제",
+          solution: [
+            "dynamic import를 활용한 컴포넌트 분할",
+            "Suspense를 활용한 로딩 상태 관리",
+            "ProjectSkeleton 컴포넌트로 사용자 경험 개선"
+          ],
+          result: "초기 페이지 로드 시간 40% 감소 및 사용자 경험 개선"
         },
         {
-          title: "성능과 사용자 경험의 균형",
-          tags: ["성능", "UX"],
-          issue: "대용량 이미지와 애니메이션으로 인한 성능 저하 문제",
-          solution: "하이브리드 렌더링 도입, 이미지 최적화, 컴포넌트 지연 로딩 적용",
-          result: "Lighthouse 성능 점수 95+ 달성, FCP 0.8초 달성"
+          title: "반응형 레이아웃 구현",
+          tags: ["UI/UX", "Tailwind CSS"],
+          issue: "다양한 디바이스에서의 최적화된 레이아웃 제공 필요",
+          solution: [
+            "Tailwind CSS의 반응형 클래스 활용",
+            "Grid 시스템을 활용한 유동적 레이아웃 구현",
+            "컴포넌트별 독립적인 반응형 처리"
+          ],
+          result: "모든 디바이스에서 일관된 사용자 경험 제공"
         }
       ],
       troubleShooting: [
         {
-          title: "다크모드 전환 시 깜빡임 문제 해결",
-          tags: ["UX", "Next.js"],
-          issue: "페이지 새로고침 시 다크모드 테마가 늦게 적용되어 깜빡이는 현상 발생",
+          title: "프로젝트 상세 페이지 성능 최적화",
+          tags: ["성능", "Next.js"],
+          issue: "프로젝트 상세 페이지 렌더링 시 발생하는 성능 저하 문제",
           process: [
-            "next-themes 라이브러리 분석",
-            "suppressHydrationWarning 옵션 검토",
-            "초기 렌더링 프로세스 최적화"
+            "Chrome DevTools를 통한 성능 분석",
+            "컴포넌트 렌더링 패턴 분석",
+            "동적 임포트 전략 수립"
           ],
-          solution: "next-themes의 suppressHydrationWarning 적용 및 초기 렌더링 최적화",
-          result: "부드러운 테마 전환 구현 및 사용자 경험 개선",
-          relatedTech: ["next-themes", "Next.js"]
+          solution: [
+            "dynamic import를 활용한 컴포넌트 분할",
+            "Suspense 경계 설정으로 점진적 로딩 구현",
+            "스켈레톤 UI 적용으로 로딩 UX 개선"
+          ],
+          result: "페이지 초기 로딩 시간 40% 감소, Lighthouse 성능 점수 98점 달성",
+          relatedTech: ["Next.js", "React Suspense", "Dynamic Import"]
+        },
+        {
+          title: "프로젝트 데이터 관리 최적화",
+          tags: ["상태관리", "TypeScript"],
+          issue: "복잡한 프로젝트 데이터 구조로 인한 타입 안정성과 유지보수성 저하",
+          process: [
+            "프로젝트 데이터 구조 분석",
+            "TypeScript 타입 시스템 설계",
+            "데이터 정규화 전략 수립"
+          ],
+          solution: "명확한 인터페이스 정의와 타입 안정성 확보를 위한 타입 시스템 구축",
+          result: "코드 품질 향상 및 개발 생산성 30% 증가",
+          relatedTech: ["TypeScript", "Next.js"]
         }
       ],
       techStacks: [
@@ -86,8 +112,6 @@ export const projects: Project[] = [
       "Next.js",
       "TypeScript",
       "Tailwind CSS",
-      "Framer Motion",
-      "shadcn/ui"
     ],
     links: {
       github: "https://github.com/gr22nist/devin-down",
@@ -127,14 +151,15 @@ export const projects: Project[] = [
     },
     period: "2024.01 ~ 2024.02",
     content: {
-      overview: "SQL 입문자가 편리하게 사용할 수 있는 웹 에디터 기반 SQLit 학습 서비스입니다.\n한글 데이터베이스를 활용하여 학습 진입 장벽을 낮추고, 재미있는 학습을 제공합니다.",
+      overview: "SQL 입문자가 편리하게 사용할 수 있는 웹 에디터 기반 SQLite 학습 서비스입니다.\n한글 데이터베이스를 활용하여 학습 진입 장벽을 낮추고, 재미있는 학습을 제공합니다.",
       role: {
         main: "프론트엔드 개발 (4인 팀 프로젝트)",
         tasks: [
           "SQLite 학습을 위한 직관적인 UI/UX 구현",
           "샘플 한글 데이터베이스 제공",
           "웹 에디터 기반 SQLite 학습 기능 구현"
-        ]
+        ],
+        participation: 50
       },
       challenges: [
         {
@@ -190,15 +215,13 @@ export const projects: Project[] = [
     },
     tech: ["Next.js", "Tailwind CSS", "Zustand", "Python", "Flask", "MariaDB"],
     links: {
-      github: "https://github.com/username/sqool",
+      github: "https://github.com/gr22nist/sqool",
       demo: "https://sqool.kr"
     },
     image: "/images/sqool-thumbnail.svg",
     gallery: [
-      "/images/project/project1.jpg",
-      "/images/project/project1.jpg",
-      "/images/project/project1.jpg",
-      "/images/project/project1.jpg"
+      "/images/project/sqool-01.png",
+      "/images/project/sqool-02.png",
     ],
     performance: {
       desktop: {
@@ -227,7 +250,8 @@ export const projects: Project[] = [
           "IndexedDB를 활용한 클라이언트 사이드 데이터 저장 구현",
           "Zustand를 활용한 상태 관리 및 실시간 미리보기 기능 개발",
           "자동 저장, 내보내기/가져오기 시스템 구축",
-        ]
+        ],
+        participation: 100
       },
       challenges: [
         {

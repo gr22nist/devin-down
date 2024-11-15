@@ -1,3 +1,12 @@
+export interface ProjectOverviewProps {
+  overview: string
+  tech: string[]
+  role: ProjectRole
+  links: ProjectLinks
+  status: ProjectStatus
+  period: string
+}
+
 interface PerformanceMetrics {
   score: number
   fcp: number
@@ -26,7 +35,7 @@ interface TechStack {
 interface Challenge {
   title: string
   tags?: string[]
-  issue: string
+  issue?: string
   solution: string | string[]
   result: string
 }
@@ -34,9 +43,9 @@ interface Challenge {
 interface TroubleShooting {
   title: string
   tags?: string[]
-  issue: string
-  process: string[]
-  solution: string
+  issue?: string
+  process?: string[]
+  solution: string | string[]
   result: string
   relatedTech?: string[]
 }
@@ -47,13 +56,21 @@ interface Feature {
   tags?: string[]
 }
 
-interface ProjectContent {
+export interface ProjectRole {
+  main: string
+  tasks: string[]
+  participation: number
+  contributions?: Contribution[]
+}
+
+export interface ProjectLinks {
+  github: string
+  demo?: string
+}
+
+export interface ProjectContent {
   overview: string
-  role: {
-    main: string
-    contributions?: Contribution[]
-    tasks: string[]
-  }
+  role: ProjectRole
   techStacks: TechStack[]
   challenges: Challenge[]
   troubleShooting: TroubleShooting[]
@@ -82,10 +99,7 @@ export interface Project {
   period: string
   content: ProjectContent
   tech: string[]
-  links: {
-    github: string
-    demo?: string
-  }
+  links: ProjectLinks
   image: string
   gallery?: string[]
   performance?: Performance

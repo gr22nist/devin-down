@@ -79,6 +79,9 @@ export function TroubleShooting({ items }: TroubleShootingProps) {
             onToggle={() => toggleItem(index)}
           >
             <div className="space-y-4">
+              <div>
+                <p className="text-muted-foreground">{item.issue}</p>
+              </div>
               {item.process && item.process.length > 0 && (
                 <div>
                   <h4 className="font-medium mb-2">해결 과정</h4>

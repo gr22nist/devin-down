@@ -5,8 +5,8 @@ export const projects: Project[] = [
     id: "portfolio",
     title: "DEVIN DOWN",
     description: [
-      "Next.js와 TypeScript로 만든 개인 포트폴리오 웹사이트",
-      "편안한 사용자 경험과 성능 지표에 중점을 둔 프론트엔드 프로젝트"
+      "Next.js, TypeScript로 만든 포트폴리오",
+      "편안한 UX와 성능 최적화 프론트엔드 프로젝트"
     ],
     status: {
       main: "운영 중",
@@ -156,15 +156,15 @@ export const projects: Project[] = [
       main: "운영 중",
       additional: ["버전 1.0"]
     },
-    period: "2024.01 ~ 2024.02",
+    period: "2024.07 ~ 2024.08",
     content: {
       overview: "SQL 입문자가 편리하게 사용할 수 있는 웹 에디터 기반 SQLite 학습 서비스입니다.\n한글 데이터베이스를 활용하여 학습 진입 장벽을 낮추고, 재미있는 학습을 제공합니다.",
       role: {
         main: "프론트엔드 개발 (4인 팀 프로젝트)",
         tasks: [
           "SQLite 학습을 위한 직관적인 UI/UX 구현",
-          "샘플 한글 데이터베이스 제공",
-          "웹 에디터 기반 SQLite 학습 기능 구현"
+          "웹 에디터 기반 SQLite 학습 기능 구현",
+          "후속 작업으로 자료 및 반응형 레이아웃, 샘플 DB 추가"
         ],
         participation: 50
       },
@@ -172,55 +172,143 @@ export const projects: Project[] = [
         {
           title: "SQL 학습 진입 장벽 낮추기",
           tags: ["UX", "교육"],
-          issue: "입문 학습자의 수준을 고려한 편의성 필요",
-          solution: "문서와 에디터를 같은 페이지에서도 사용할 수 있도록 구현",
-          result: "문서를 확인하고 연습 문제 카피 기능을 추가하여 빠른 학습 유도"
+          issue: "SQL 초보자들이 겪는 설치와 환경설정의 어려움",
+          solution: [
+            "웹 기반 SQLite 에디터로 설치 과정 제거",
+            "K-문화 테마의 한글 데이터로 친숙성 확보",
+            "문서와 에디터를 같은 화면에 배치하여 학습 효율 향상"
+          ],
+          result: "설치 없이 바로 시작하는 SQL 학습 경험 제공"
+        },
+        {
+          title: "하이브리드 레이아웃 구현",
+          tags: ["UI/UX", "반응형"],
+          issue: "디바이스별로 다른 학습 경험 최적화 필요",
+          solution: [
+            "모바일에서는 문서와 에디터를 세로로 배치",
+            "데스크톱에서는 좌우 분할 레이아웃 적용",
+            "Next.js Image와 Font 최적화로 CLS 개선"
+          ],
+          result: "디바이스 특성에 맞는 최적화된 학습 경험 제공"
+        },
+        {
+          title: "성능과 보안 최적화",
+          tags: ["성능", "보안"],
+          issue: "에디터 번들 크기와 XSS 취약점 위험",
+          solution: [
+            "CodeMirror 동적 임포트로 초기 로딩 최적화",
+            "DOMPurify로 마크다운 콘텐츠 소독",
+            "Next.js CSP로 리소스 보안 강화"
+          ],
+          result: "Lighthouse 성능 점수 98점 및 안전한 콘텐츠 제공"
         }
       ],
       troubleShooting: [
         {
-          title: "다크모드 전환 시 깜빡임 문제 해결",
-          tags: ["UX", "Next.js"],
-          issue: "페이지 새로고침 시 다크모드 테마가 늦게 적용되어 깜빡이는 현상 발생",
+          title: "반응형 레이아웃 최적화",
+          tags: ["UI/UX", "레이아웃"],
+          issue: "모바일과 데스크톱에서 문서와 에디터의 레이아웃 구조가 달라야 하는 문제",
           process: [
-            "next-themes 라이브러리 분석",
-            "suppressHydrationWarning 옵션 검토",
-            "초기 렌더링 프로세스 최적화"
+            "useStore로 전역 상태에서 화면 크기 관리",
+            "브레이크포인트별 레이아웃 분석",
+            "컴포넌트 재사용성 검토"
           ],
-          solution: "next-themes의 suppressHydrationWarning 적용 및 초기 렌더링 최적화",
-          result: "부드러운 테마 전환 구현 및 사용자 경험 개선",
-          relatedTech: ["next-themes", "Next.js"]
+          solution: [
+            "totalOffset 값을 활용한 동적 높이 계산",
+            "isMobile 상태에 따른 조건부 레이아웃 렌더링",
+            "CSS Grid와 Flexbox 조합으로 유연한 레이아웃 구현"
+          ],
+          result: "디바이스별 최적화된 학습 경험 제공",
+          relatedTech: ["Tailwind CSS", "Zustand"]
+        },
+        {
+          title: "SQL 에디터 재사용성 개선",
+          tags: ["성능", "아키텍처"],
+          issue: "시작 페이지와 에디터 페이지에서 동일한 에디터 컴포넌트 사용 시 불필요한 기능 로드",
+          process: [
+            "에디터 컴포넌트 분석",
+            "공통 기능과 페이지별 기능 분리",
+            "동적 임포트 전략 수립"
+          ],
+          solution: [
+            "isEditorPage prop으로 기능 분기 처리",
+            "dynamic import로 에디터 지연 로딩",
+            "LoadingEditor 컴포넌트로 로딩 UX 개선"
+          ],
+          result: "페이지별 최적화된 에디터 로딩과 사용성 향상",
+          relatedTech: ["Next.js", "CodeMirror"]
+        },
+        {
+          title: "마크다운 콘텐츠 보안 강화",
+          tags: ["보안", "XSS"],
+          issue: "사용자 생성 마크다운 콘텐츠의 XSS 취약점 위험",
+          process: [
+            "마크다운 파싱 프로세스 분석",
+            "DOMPurify 설정 검토",
+            "허용할 HTML 태그와 속성 정의"
+          ],
+          solution: [
+            "DOMPurify로 HTML 콘텐츠 sanitize",
+            "허용된 태그와 속성만 필터링하여 렌더링"
+          ],
+          result: "안전한 마크다운 렌더링과 XSS 공격 방지",
+          relatedTech: ["DOMPurify"]
         }
       ],
       techStacks: [
         {
           name: "Next.js",
-          reason: "빠른 페이지 로드와 SEO 최적화를 위해 선택"
+          reason: "빠른 페이지 로드와 SEO 최적화",
+          description: "App Router, Image/Font 최적화, CSP 설정 활용"
         },
         {
-          name: "Flask",
-          reason: "경량화된 백엔드 서버 구축과 SQLite 연동을 위해 선택"
-        }
+          name: "CodeMirror",
+          reason: "SQL 에디터 구현",
+          description: "구문 강조, 자동완성, 실시간 문법 검사 기능 제공"
+        },
+        {
+          name: "Tailwind CSS",
+          reason: "반응형 UI 개발",
+          description: "다크모드와 반응형 레이아웃 구현에 활용"
+        },
+        {
+          name: "Zustand",
+          reason: "상태 관리",
+          description: "경량화된 전역 상태 관리로 레이아웃 상태 제어"
+        },
       ],
       features: [
         {
-          title: "하이브리드 렌더링",
-          description: "SSR과 SSG를 조합하여 최적의 성능 제공",
-          tags: ["성능", "SEO"]
+          title: "하이브리드 레이아웃",
+          description: "디바이스 크기에 따라 최적화된 문서-에디터 레이아웃 제공",
+          tags: ["UI/UX", "반응형"]
         },
         {
-          title: "반응형 디자인",
-          description: "모든 디바이스에서 최적화된 레이아웃 제공",
-          tags: ["UI/UX", "접근성"]
+          title: "한글 데이터베이스",
+          description: [
+            "K-POP 아티스트 데이터베이스",
+            "한국 영화 데이터베이스",
+            "데이터베이스 파일 다운로드 기능"
+          ],
+          tags: ["데이터", "K-문화"]
         },
         {
-          title: "다크모드",
-          description: "시스템 설정과 연동되는 자연스러운 테마 전환",
-          tags: ["UI/UX", "접근성"]
+          title: "최적화된 학습 경험",
+          description: [
+            "문서와 에디터 통합 인터페이스",
+            "디바이스별 최적화된 레이아웃",
+            "연습 문제 복사 및 실행 기능"
+          ],
+          tags: ["UX", "교육"]
+        },
+        {
+          title: "안전한 콘텐츠 렌더링",
+          description: "DOMPurify를 활용한 마크다운 콘텐츠 보안 처리",
+          tags: ["보안", "마크다운"]
         }
       ]
     },
-    tech: ["Next.js", "Tailwind CSS", "Zustand", "Python", "Flask", "MariaDB"],
+    tech: ["Next.js", "Tailwind CSS", "Zustand", "Python", "Flask", "SQLite"],
     links: {
       github: "https://github.com/gr22nist/sqool",
       demo: "https://sqool.kr"
@@ -272,51 +360,108 @@ export const projects: Project[] = [
       ],
       troubleShooting: [
         {
-          title: "상태 관리 성능 최적화",
-          tags: ["성능", "상태관리"],
-          issue: "복잡한 상태 관리와 번들 크기로 인한 성능 저하 문제",
+          title: "클라이언트 사이드 데이터 보안",
+          tags: ["보안", "아키텍처"],
+          issue: "민감한 개인정보 보호와 데이터 유출 방지",
           process: [
-            "성능 병목 지점 분석",
-            "상태 업데이트 로직 검토",
-            "동적 임포트 적용 검토"
+            "IndexedDB를 활용한 로컬 저장소 구현",
+            "AES-256 암호화 적용",
+            "데이터 복호화 로직 최적화"
           ],
-          solution: "동적 임포트를 활용하고 상태 업데이트 배치 처리로 렌더링 최적화",
-          result: "페이지 로드 시간 30% 감소, 실시간 미리보기 성능 개선",
-          relatedTech: ["Zustand", "Dynamic Import"]
+          solution: [
+            "민감 정보 암호화 저장",
+            "섹션별 데이터 분리 저장",
+            "에러 복구 메커니즘 구현"
+          ],
+          result: "서버 없이 안전한 데이터 관리 구현"
+        },
+        {
+          title: "동적 섹션 관리",
+          tags: ["UX", "상태관리"],
+          issue: "복잡한 이력서 섹션의 실시간 상태 관리",
+          process: [
+            "섹션 CRUD 로직 분석",
+            "상태 업데이트 최적화",
+            "드래그 앤 드롭 구현"
+          ],
+          solution: [
+            "useCallback으로 핸들러 최적화",
+            "uuid를 도입하여 섹션 오더 관리",
+            "실시간 미리보기 연동"
+          ],
+          result: "섹션 순서 관리 및 실시간 미리보기 연동"
+        },
+        {
+          title: "데이터 이식성",
+          tags: ["기능", "UX"],
+          issue: "브라우저 간 데이터 이동과 백업 필요",
+          process: [
+            "데이터 구조 분석",
+            "임포트/엑스포트 로직 설계",
+            "에러 처리 구현"
+          ],
+          solution: [
+            "JSON 기반 데이터 직렬화",
+            "섹션 순서 보존",
+            "데이터 검증 로직 추가"
+          ],
+          result: "안정적인 데이터 이식 기능 구현"
         }
       ],
       techStacks: [
         {
           name: "Next.js",
-          reason: "클라이언트 사이드 렌더링과 정적 페이지 생성을 위해 선택",
-          description: "빠른 초기 로딩과 SEO 최적화를 위한 하이브리드 렌더링 활용"
+          reason: "클라이언트 사이드 최적화",
+          description: "App Router, Image/Font 최적화, CSP 설정 활용"
         },
         {
           name: "IndexedDB",
-          reason: "클라이언트 사이드 데이터 저장과 보안을 위해 선택",
-          description: "사용자 데이터를 브라우저에 안전하게 저장하고 관리"
+          reason: "클라이언트 사이드 데이터 저장",
+          description: "Dexie.js로 추상화된 안전한 데이터 관리"
+        },
+        {
+          name: "crypto-js",
+          reason: "데이터 보안",
+          description: "AES-256 암호화로 로컬 데이터 보호"
+        },
+        {
+          name: "@dnd-kit",
+          reason: "섹션 관리",
+          description: "드래그 앤 드롭 기반 섹션 정렬 구현"
         },
         {
           name: "Zustand",
-          reason: "경량화된 상태 관리와 높은 성능을 위해 선택",
-          description: "실시간 미리보기와 자동 저장을 위한 상태 관리"
+          reason: "상태 관리",
+          description: "경량화된 전역 상태 관리로 섹션 상태 제어"
         }
       ],
       features: [
         {
-          title: "하이브리드 렌더링",
-          description: "SSR과 SSG를 조합하여 최적의 성능 제공",
-          tags: ["성능", "SEO"]
+          title: "Next.js 최적화",
+          description: [
+            "App Router와 서버 컴포넌트 활용",
+            "Image/Font 자동 최적화",
+            "CSP 기반 리소스 보안"
+          ],
+          tags: ["성능", "Next.js"]
         },
         {
-          title: "반응형 디자인",
-          description: "모든 디바이스에서 최적화된 레이아웃 제공",
-          tags: ["UI/UX", "접근성"]
+          title: "보안 중심 설계",
+          description: [
+            "서버리스 아키텍처로 데이터 유출 방지",
+            "AES-256 암호화로 로컬 데이터 보호",
+            "안전한 IndexedDB 저장소 활용"
+          ],
+          tags: ["보안", "아키텍처"]
         },
         {
-          title: "다크모드",
-          description: "시스템 설정과 연동되는 자연스러운 테마 전환",
-          tags: ["UI/UX", "접근성"]
+          title: "섹션 관리 시스템",
+          description: [
+            "드래그 앤 드롭 기반 섹션 정렬",
+            "커스텀 섹션 생성 지원",
+            "실시간 자동 저장"
+          ],
+          tags: ["UX", "기능"]
         }
       ]
     },

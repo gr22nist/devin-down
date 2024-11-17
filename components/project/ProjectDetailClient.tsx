@@ -41,8 +41,8 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
     <div className="min-h-screen text-foreground">
       <ProjectBackground />
       <ProjectHeader />
-      <main className="py-12">
-        <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+      <main className="py-10">
+        <div className="max-w-screen-xl mx-auto flex flex-col gap-8 px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

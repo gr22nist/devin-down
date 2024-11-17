@@ -33,7 +33,7 @@ export function FloatingContact() {
       </motion.div>
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="max-w-sm sm:max-w-lg">
+        <DialogContent className="max-w-xs sm:max-w-lg">
           <DialogHeader>
             <DialogTitle>연락하기</DialogTitle>
             <DialogDescription>
@@ -43,7 +43,7 @@ export function FloatingContact() {
           <div className="grid gap-4 py-4">
             <Button asChild variant="outline" className="w-full">
               <a href="mailto:gr22nist@gmail.com">
-                <Mail className="mr-2 h-4 w-4" />
+                <Mail className="h-4 w-4" />
                 이메일 보내기
               </a>
             </Button>

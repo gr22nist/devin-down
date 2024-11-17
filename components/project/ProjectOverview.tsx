@@ -9,10 +9,10 @@ type BadgeVariant = NonNullable<BadgeProps["variant"]>
 
 export function ProjectOverview({ overview, tech, role, links, status, period }: ProjectOverviewProps) {
   return (
-    <div className="space-y-8">
-      <Section title="프로젝트 개요">
-        <div className="space-y-8">
-          <div className="flex flex-wrap items-center gap-3">
+    <>
+      <Section title="프로젝트 정보">
+        <div className="flex flex-col gap-8">
+          <div className="flex flex-wrap items-center gap-2">
             <Badge variant={getStatusVariant(status.main)}>
               {status.main}
             </Badge>
@@ -49,7 +49,7 @@ export function ProjectOverview({ overview, tech, role, links, status, period }:
           <div className="space-y-3">
             <h4 className="text-lg font-semibold">담당 역할</h4>
             <div className="space-y-3">
-              <div className="flex items-center gap-2">
+              <div className="flex flex-col sm:flex-row items-start gap-2">
                 <span className="font-medium">{role.main}</span>
                 <Badge>참여율 {role.participation}%</Badge>
               </div>
@@ -79,7 +79,7 @@ export function ProjectOverview({ overview, tech, role, links, status, period }:
           </div>
         </div>
       </Section>
-    </div>
+    </>
   )
 }
 

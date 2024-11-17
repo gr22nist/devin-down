@@ -104,7 +104,7 @@ export default function HeroSection() {
   const FileNameLabel = memo(function FileNameLabel() {
     return (
       <span 
-        className="text-xs text-muted-foreground ml-2 select-none hidden sm:inline-block"
+        className="text-xs text-primary ml-2 select-none hidden sm:inline-block"
         aria-hidden="true"
       >
         devin-down.js
@@ -148,12 +148,12 @@ export default function HeroSection() {
                   </div>
                   <FileNameLabel />
                 </div>
-                <div className="text-xs text-muted-foreground">
-                  <span className="px-2 py-1 rounded-md bg-primary/10">main</span>
+                <div className="text-xs text-primary">
+                  <span className="px-2 py-1 rounded-md bg-background/80">main</span>
                 </div>
               </div>
 
-              <div className="p-4 sm:p-6 space-y-4 font-mono text-sm sm:text-base overflow-x-auto">
+              <div className="p-4 sm:p-6 space-y-4 font-mono text-xs sm:text-sm overflow-x-auto">
                 <motion.div className="group whitespace-nowrap sm:whitespace-normal">
                   <span className="text-zinc-800 dark:text-white">{importText}</span>
                 </motion.div>

@@ -132,10 +132,9 @@ export const projects: Project[] = [
     },
     image: "/images/dd-thumbnail.svg",
     gallery: [
-      "/images/project/project1.jpg",
-      "/images/project/project1.jpg",
-      "/images/project/project1.jpg",
-      "/images/project/project1.jpg"
+      "/images/project/dd-01.jpg",
+      "/images/project/dd-02.jpg",
+      "/images/project/dd-03.jpg",
     ],
     performance: {
       desktop: {
@@ -315,8 +314,9 @@ export const projects: Project[] = [
     },
     image: "/images/sqool-thumbnail.svg",
     gallery: [
-      "/images/project/sqool-01.png",
-      "/images/project/sqool-02.png",
+      "/images/project/sqool-01.jpg",
+      "/images/project/sqool-02.jpg",
+      "/images/project/sqool-03.jpg",
     ],
     performance: {
       desktop: {
@@ -344,8 +344,9 @@ export const projects: Project[] = [
         main: "프론트엔드 개발 (개인 프로젝트)",
         tasks: [
           "IndexedDB를 활용한 클라이언트 사이드 데이터 저장 구현",
-          "Zustand를 활용한 상태 관리 및 실시간 미리보기 기능 개발",
           "자동 저장, 내보내기/가져오기 시스템 구축",
+          "Zustand를 활용한 상태 관리",
+          "실시간 미리보기 및 디자인 테마 개발 진행 중"
         ],
         participation: 100
       },
@@ -472,10 +473,8 @@ export const projects: Project[] = [
     },
     image: "/images/myr-thumbnail.svg",
     gallery: [
-      "/images/project/project1.jpg",
-      "/images/project/project1.jpg",
-      "/images/project/project1.jpg",
-      "/images/project/project1.jpg"
+      "/images/project/myr-01.jpg",
+      "/images/project/myr-02.jpg",
     ],
     performance: undefined
   }

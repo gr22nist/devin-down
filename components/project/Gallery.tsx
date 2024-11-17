@@ -32,7 +32,7 @@ export function Gallery({
       className
     )}>
       <div className={cn(
-        "aspect-[16/9] md:aspect-[21/9]",
+        "aspect-video",
         isModal && "aspect-auto max-h-[80vh]",
         "relative"
       )}>
@@ -49,9 +49,10 @@ export function Gallery({
               src={images[currentIndex]}
               alt={`${title} 스크린샷 ${currentIndex + 1}`}
               fill
-              className="object-cover"
-              priority={currentIndex === 0}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-contain"
+              quality={85}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw" 
+              priority
             />
           </motion.div>
         </AnimatePresence>

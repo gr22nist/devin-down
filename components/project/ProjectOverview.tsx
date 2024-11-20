@@ -1,11 +1,8 @@
 import { Badge } from "../ui/badge"
-import type { BadgeProps } from "../ui/badge"
 import { Button } from "../ui/button"
 import { ExternalLink, Github } from "lucide-react"
 import { Section } from "./Section"
-import { ProjectStatusType, ProjectOverviewProps } from "@/types/project"
-
-type BadgeVariant = NonNullable<BadgeProps["variant"]>
+import { ProjectOverviewProps } from "@/types/project"
 
 export function ProjectOverview({ overview, tech, role, links, status, period }: ProjectOverviewProps) {
   return (
@@ -13,13 +10,13 @@ export function ProjectOverview({ overview, tech, role, links, status, period }:
       <Section title="프로젝트 정보">
         <div className="flex flex-col gap-8">
           <div className="flex flex-wrap items-center gap-2">
-            <Badge variant={getStatusVariant(status.main)}>
+            <Badge variant="status">
               {status.main}
             </Badge>
             {status.additional?.map((additionalStatus) => (
               <Badge 
                 key={additionalStatus}
-                variant={getStatusVariant(additionalStatus)}
+                variant="status"
               >
                 {additionalStatus}
               </Badge>
@@ -39,7 +36,7 @@ export function ProjectOverview({ overview, tech, role, links, status, period }:
             <h4 className="text-lg font-semibold">사용 기술</h4>
             <div className="flex flex-wrap gap-2">
               {tech.map((item) => (
-                <Badge key={item} variant="outline">
+                <Badge key={item} variant="tech">
                   {item}
                 </Badge>
               ))}
@@ -51,7 +48,7 @@ export function ProjectOverview({ overview, tech, role, links, status, period }:
             <div className="space-y-3">
               <div className="flex flex-col sm:flex-row items-start gap-2">
                 <span className="font-medium">{role.main}</span>
-                <Badge>참여율 {role.participation}%</Badge>
+                <Badge variant="status">참여율 {role.participation}%</Badge>
               </div>
               <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-2">
                 {role.tasks.map((task, index) => (
@@ -81,23 +78,4 @@ export function ProjectOverview({ overview, tech, role, links, status, period }:
       </Section>
     </>
   )
-}
-
-function getStatusVariant(status: ProjectStatusType): BadgeVariant {
-  switch (status) {
-    case '운영 중':
-      return 'success'
-    case '버전 1.0':
-      return 'outline'
-    case '개발 중':
-      return 'default'
-    case 'MVP':
-      return 'warning'
-    case '리뉴얼 예정':
-      return 'info'
-    case '유지보수 중':
-      return 'secondary'
-    default:
-      return 'outline'
-  }
 } 

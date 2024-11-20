@@ -50,9 +50,9 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
             className="space-y-12"
           >
             {/* 1. 프로젝트 소개 */}
-            <div className="space-y-4">
-              <h1 className="text-4xl font-bold text-center">{project.title}</h1>
-              <div className="text-lg text-muted-foreground text-center max-w-2xl mx-auto">
+            <div className="space-y-4 px-4 sm:px-6">
+              <h1 className="text-3xl sm:text-4xl font-bold text-center">{project.title}</h1>
+              <div className="text-base sm:text-lg text-muted-foreground text-center mx-auto max-w-[90%] sm:max-w-2xl">
                 {Array.isArray(project.description) ? (
                   project.description.map((desc, index) => (
                     <p key={index}>{desc}</p>
@@ -82,7 +82,7 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
             <div className="grid lg:grid-cols-2 gap-6">
               {/* 왼쪽: 프로젝트 개요 */}
               <div className="order-first">
-                <div className="lg:sticky lg:top-20">
+                <div className="lg:sticky lg:top-20 max-h-[calc(100vh-6rem)] overflow-y-auto">
                   <Suspense fallback={<ProjectSkeleton />}>
                     <div className="p-6 rounded-lg border bg-card/80 backdrop-blur-sm">
                       <ProjectOverview 

@@ -70,7 +70,9 @@ export function Challenges({ challenges }: ChallengesProps) {
             key={index}
             title={challenge.title}
             tags={challenge.tags?.map(tag => (
-              <Badge key={tag} variant="secondary">{tag}</Badge>
+              <Badge key={tag} variant="challenge">
+                {tag}
+              </Badge>
             ))}
             isOpen={openIndexes.includes(index)}
             onToggle={() => toggleItem(index)}

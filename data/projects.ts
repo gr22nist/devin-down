@@ -310,7 +310,7 @@ export const projects: Project[] = [
     tech: ["Next.js", "Tailwind CSS", "Zustand", "Python", "Flask", "SQLite"],
     links: {
       github: "https://github.com/gr22nist/sqool",
-      demo: "https://sqool.kr"
+      demo: "https://sqool.hua.ai.kr"
     },
     image: "/images/sqool-thumbnail.svg",
     gallery: [

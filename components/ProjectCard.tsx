@@ -160,15 +160,15 @@ export function ProjectCard({ id, title, description, tech, image, status }: Pro
 function getStatusVariant(status: ProjectStatusType): BadgeVariant {
   switch (status) {
     case '운영 중':
-      return 'success'
+      return 'challenge'
     case '버전 1.0':
       return 'secondary'
     case '개발 중':
       return 'default'
     case 'MVP':
-      return 'warning'
+      return 'trouble'
     case '리뉴얼 예정':
-      return 'info'
+      return 'reason'
     case '유지보수 중':
       return 'secondary'
     default:
